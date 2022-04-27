@@ -1,40 +1,54 @@
 package algorithm.programmers;
 
-import java.util.Arrays;
-
 class Lesson17682 {
     static int solution(String dartResult) {
         int answer = 0;
         int[] point = {0,0,0};
         int pointer = 0;
-        for(int i = 0 ; i < dartResult.length() ; i ++) {
-//            System.out.println(Character.isdartResult.charAt(i));
-//            if(isChar(dartResult.charAt(i))) {
-//                point[pointer] = pow(dartResult.charAt(i-1), dartResult.charAt(i));
-//                if(i+1 <= dartResult.length())
-//                pointer++;
-//            }
+        int dart = 0;
+
+        for(int i = 0; i<dartResult.length(); i++) {
+            Character ch = dartResult.charAt(i);
+            if(Character.isDigit(ch)) {
+                dart = Character.getNumericValue(ch);
+                if(i != 0 && dart == 0 && Character.isDigit(dartResult.charAt(i-1))) dart = 10;
+            }
+            else if(Character.isAlphabetic(ch)) {
+                if(ch == 'D') dart = (int) Math.pow(dart, 2);
+                else if(ch == 'T') dart = (int) Math.pow(dart, 3);
+                point[pointer] = dart;
+                pointer++;
+            }
+            else {
+                if(ch == '*') {
+                    point[pointer-1] *= 2;
+                    if(pointer > 1) point[pointer-2] *= 2;
+                }
+                else if(ch == '#') point[pointer-1] *= -1;
+            }
         }
+        for(int sum : point)
+            answer += sum;
+
         return answer;
     }
 
-    static boolean isChar(char ch) {
-        int a = (int) ch;
-        if(a >= 65 && a<= 90) return true;
-        else return false;
-    }
-
-    static int pow(char a, char b) {
-        int pow = 1;
-        if(b == 'D') pow = 2;
-        else if(b == 'T') pow = 3;
-        return (int) Math.pow(Character.getNumericValue(a), pow);
-    }
-
     public static void main(String[] args) {
-        String a = "1S2D*3T";
+        String a1 = "1S2D*3T";
+        String a2 = "1D2S#10S";
+        String a3 = "1D2S0T";
+        String a4 = "1S*2T*3S";
+        String a5 = "1D#2S*3S";
+        String a6 = "1T2D3D#";
+        String a7 = "1D2S3T*";
         System.out.println("===START===");
-        System.out.println(solution(a));
+        System.out.println(solution(a1));
+        System.out.println(solution(a2));
+        System.out.println(solution(a3));
+        System.out.println(solution(a4));
+        System.out.println(solution(a5));
+        System.out.println(solution(a6));
+        System.out.println(solution(a7));
         System.out.println("===END===");
     }
 }
