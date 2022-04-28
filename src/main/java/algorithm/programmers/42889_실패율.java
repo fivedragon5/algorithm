@@ -1,27 +1,45 @@
 package algorithm.programmers;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 class Lesson42889 {
     static int[] solution(int N, int[] stages) {
-        int[] answer = {};
         HashMap<Integer, Integer> stageStayPlayer = new HashMap<>();
-        HashMap<Integer, Double>  failRateMap = new HashMap<>();
-        int stagePlayer = stages.length;
+        HashMap<Integer, Float>  failRateMap = new HashMap<>(); //들어온대로 저장
+        int participation = stages.length;
 
         for(int i = 1 ; i <= N ; i++) {
-            failRateMap.put(i, (double) 0);
+            stageStayPlayer.put(i, 0);
+            failRateMap.put(i, (float) 0);
         }
 
         for(int stage : stages)
             stageStayPlayer.put(stage, stageStayPlayer.getOrDefault(stage, 0) + 1);
 
-        for(int stage : stageStayPlayer.keySet()) {
-
+        for(int stage : failRateMap.keySet()) {
+            if(stageStayPlayer.get(stage) != 0) {
+                failRateMap.put(stage, (float) stageStayPlayer.get(stage) / participation);
+                participation -= stageStayPlayer.get(stage);
+            }
         }
 
-        return answer;
+        List<Integer> sortMap = sortMapByValue(failRateMap);
+        int[] arr = sortMap.stream().mapToInt(i -> i).toArray();
+
+        System.out.println(Arrays.toString(arr));
+        return arr;
+    }
+
+    static List<Integer> sortMapByValue(HashMap<Integer, Float> map) {
+        List<Map.Entry<Integer, Float>> entries = new LinkedList<>(map.entrySet());
+        Collections.sort(entries, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+
+        List<Integer> result = new ArrayList<>();
+        for (Map.Entry<Integer, Float> entry : entries) {
+            result.add(entry.getKey());
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {
