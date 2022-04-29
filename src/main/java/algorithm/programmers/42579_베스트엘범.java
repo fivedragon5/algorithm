@@ -5,65 +5,61 @@ import java.util.*;
 class Lesson42579 {
     static int[] solution(String[] genres, int[] plays) {
         int[] answer = {};
-        LinkedHashMap<String, Integer> genresSum = new LinkedHashMap<>();
-        HashMap<String, List<Integer>> songIndex = new HashMap<>();
-        List<Integer> tempList = new ArrayList<>();
-        List<Integer> bestList = new ArrayList<>();
+        HashMap<String, Integer> playsSum = new HashMap<>();
+        HashMap<String, TreeMap<Integer, Integer>> genresPlays = new HashMap<>();
+        TreeMap<Integer, Integer> tempTreeMap = new TreeMap<>();
 
-        for(int i = 0 ; i < plays.length ; i++) {
-            genresSum.put(genres[i], genresSum.getOrDefault(genres[i], 0) + plays[i]);
-            if(songIndex.get(genres[i]) == null) {
-                tempList = new ArrayList<>();
-            }
-            else {
-                tempList = songIndex.get(genres[i]);
-            }
-            tempList.add(plays[i]);
-            songIndex.put(genres[i], tempList);
+        //1. HashMap (genre, 장르별 합)
+        for(int i = 0 ; i <plays.length ; i ++){
+            playsSum.put(genres[i], playsSum.getOrDefault(genres[i] ,0) + plays[i]);
+            tempTreeMap = genresPlays.getOrDefault(genres[i], new TreeMap<Integer, Integer>());
+            tempTreeMap.put(i, plays[i]);
+            genresPlays.put(genres[i], tempTreeMap);
         }
+        
+        //2. 장르 합의 순위
+        List<String> genresRank = sortByValue(playsSum);
+        List<Integer> answerList = new LinkedList<>();
 
-        genresSum = sortByValue(genresSum);
-        List<int[]> b = Arrays.asList(plays);
-
-        for(String key : genresSum.keySet()) {
-            List<Integer> genreSong = songIndex.get(key);
-            genreSong.sort(Comparator.reverseOrder());
-            System.out.println(genreSong.toString() + "fivetest!");
-
-            for(int i = 0; i < genreSong.size() ; i ++) {
-                int c = genreSong.get(i);
-                //int index = Arrays.asList(plays).indexOf(genreSong.get(i));
-                int index = b.indexOf(c);
-                System.out.println(genreSong.get(i) + " fivetest@" + index);
-                bestList.add(index);
-                if(i > 0) {
-                    break;
-                }
+        for(String genre : genresRank) {
+            List<Integer> keyList = sortByValue2(genresPlays.get(genre));
+            int i = 0;
+            for(int key : keyList) {
+               answerList.add(key);
+               if(i >= 1) {
+                   break;
+               }
+               i++;
             }
         }
 
-        System.out.println(bestList.toString());
-
+        answer = answerList.stream().mapToInt(Integer::intValue).toArray();
+        System.out.println(Arrays.toString(answer));
         return answer;
     }
 
-    static private LinkedHashMap<String, Integer> sortByValue(LinkedHashMap<String, Integer> map) {
+    static private List<String> sortByValue(HashMap<String, Integer> map) {
         List<String> keyList = new ArrayList<>(map.keySet());
-        LinkedHashMap<String, Integer> result = new LinkedHashMap<>();
         keyList.sort((o1, o2) -> map.get(o2) - map.get(o1));
+        return keyList;
+    }
 
-        for(String key : keyList) {
-            result.put(key, map.get(key));
-        }
-
-        return result;
+    static private List<Integer> sortByValue2(TreeMap<Integer, Integer> map) {
+        List<Integer> keyList = new ArrayList<>(map.keySet());
+        keyList.sort((o1, o2) -> map.get(o2) - map.get(o1));
+        return keyList;
     }
 
     public static void main(String[] args) {
-        String[] genres = {"classic", "pop", "classic", "classic", "pop", "a", "a"};
-        int[] plays = {500, 600, 150, 800, 2500, 100, 200}; // {4, 1, 3, 0}
+        String[] genres = {"d", "classic", "pop", "classic", "classic", "pop", "a", "b", "b", "c" , "d", "d"};
+        int[] plays = {10000, 500, 600, 150, 800, 2500, 100, 100, 100, 10000, 200, 10000}; // {8, 4, 1, 3, 0, 7, 6, 5}
         System.out.println("===START===");
         System.out.println(solution(genres, plays));
+
+        String[] genres2 = {"classic", "pop", "classic", "classic", "pop", "classic"};
+        int[] plays2 = {500, 600, 150, 800, 2500, 800}; // {4, 1, 3, 5}
+        System.out.println(solution(genres2, plays2));
+
         System.out.println("===END===");
     }
 }
