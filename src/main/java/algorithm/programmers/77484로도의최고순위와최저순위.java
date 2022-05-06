@@ -24,11 +24,18 @@ class Lesson77484 {
         }
 
         answer[0] = 7-correctCount-zeroCount;
+        answer[1] = 7-correctCount;
 
-        if(correctCount == 0) answer[1] = 6;
-        else answer[1] = 7-correctCount;
+//        if(correctCount == 0) {
+//            answer[0] = 6;
+//            answer[1] = 6;
+//            if(zeroCount != 0) answer[0] = 7-zeroCount;
+//        }
 
-        System.out.println(answer[0] + "a" +answer[1]);
+        answer[0] = answer[0] > 6 ? 6 : answer[0];
+        answer[1] = answer[1] > 6 ? 6 : answer[1];
+
+
 
         return answer;
     }
