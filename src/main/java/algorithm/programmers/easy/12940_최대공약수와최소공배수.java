@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.easy;
 
 class Lesson12940 {
     static int[] solution(int n, int m) {

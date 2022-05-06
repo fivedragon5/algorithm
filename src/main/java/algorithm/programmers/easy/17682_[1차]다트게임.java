@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.easy;
 
 class Lesson17682 {
     static int solution(String dartResult) {

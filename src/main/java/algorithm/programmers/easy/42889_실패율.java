@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.easy;
 
 import java.util.*;
 import java.util.stream.Collectors;

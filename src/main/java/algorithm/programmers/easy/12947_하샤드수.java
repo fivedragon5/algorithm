@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.easy;
 
 class Lesson12947 {
     static boolean solution(int x) {

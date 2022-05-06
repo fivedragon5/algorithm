@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.easy;
 
 import java.util.Collections;
 import java.util.HashSet;

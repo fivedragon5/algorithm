@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.stackNQueue;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

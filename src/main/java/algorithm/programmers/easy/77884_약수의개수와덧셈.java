@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.easy;
 
 class Lesson77884 {
     static int solution(int left, int right) {

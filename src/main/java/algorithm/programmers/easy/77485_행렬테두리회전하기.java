@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.easy;
 
 class Lesson77485 {
     static int[] solution(int rows, int columns, int[][] queries) {

@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.search;
 
 class Lesson12921 {
     static int solution(int n) {

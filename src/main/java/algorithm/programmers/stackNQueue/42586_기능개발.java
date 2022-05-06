@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.stackNQueue;
 
 import java.util.*;
 import java.util.stream.Collectors;
