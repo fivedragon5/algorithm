@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.hard;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -70,29 +70,22 @@ class Lesson67258 {
         int min = gems.length;
         HashSet<String> gemList = new HashSet<>();
         HashMap<String, Integer> temp = new HashMap<>(); //보석 종류
-
         for(String gem : gems)
             gemList.add(gem);
-
         int gemCount = gemList.size(); //보석 종류 갯수
-        
         //초기값 세팅
         int start = 0;
         int end = -1;
         answer[0] = 1;
         answer[1] = gems.length;
         temp.put(gems[0],0);
-
         if(gemCount == 1) {
             answer[0] = 1;
             answer[1] = 1;
             return answer;
         }
-
         while(true) {
-
             if(start >= gems.length - gemCount) break;
-
             if(gemCount > temp.size()) {
                 end++;
                 if(end >= gems.length) break;
@@ -103,10 +96,8 @@ class Lesson67258 {
                 if(temp.get(gems[start]) == 0) temp.remove(gems[start]);
                 start++;
             }
-
             //System.out.println("start : " + start + " end :" + end + "");
             //System.out.println(temp.toString());
-
             if(temp.size() >= gemCount) {
                 System.out.println((start+1) + "////" + (end+1));
                 if(min > end-start) {
@@ -116,31 +107,67 @@ class Lesson67258 {
                 }
             }
         }
-
         //System.out.println(answer[0] + "/" + answer[1]);
+        return answer;
+    }
 
+    static int[] solution4(String[] gems) {
+        //투포인터 알고리즘
+        int[] answer = {1, gems.length};
+        int min = gems.length+1;
+        int left = 0;
+        int right = 0;
+        
+        HashSet<String> gemsList = new HashSet<>(); //보석의 종류
+
+        for(String gem : gems)
+            gemsList.add(gem);
+
+        HashMap<String, Integer> buyList = new HashMap<>();
+
+        while(right <= gems.length) {
+            if (buyList.size() >= gemsList.size()) {
+
+                if(min > right - left) {
+                    answer[0] = left+1;
+                    answer[1] = right;
+                    min = right - left;
+                }
+
+                buyList.put(gems[left], buyList.get(gems[left]) - 1);
+
+                if (buyList.get(gems[left]) == 0)
+                    buyList.remove(gems[left]);
+
+                left++;
+            }
+            else {
+                if(right >= gems.length) break;
+                buyList.put(gems[right], buyList.getOrDefault(gems[right], 0) + 1);
+                right++;
+            }
+            //System.out.println(buyList.toString());
+        }
+        //System.out.println(answer[0] + "/" + answer[1]);
         return answer;
     }
 
 
 
     public static void main(String[] args) {
+        // 1 <= gems.length <= 100,000
         //String[] gems = {"DIA", "RUBY", "RUBY", "DIA", "DIA", "EMERALD", "SAPPHIRE", "DIA"};
-        String[] gems = {"AA", "AB", "AC", "AA", "AC"};
+        //String[] gems = {"XYZ", "XYZ", "XYZ"};
+        //String[] gems = {"DIA", "RUBY", "EMERALD", "RUBY", "SAPPHIRE", "RUBY", "DIA", "EMERALD", "SAPPHIRE"};
+        String[] gems = {"AA", "AB", "AB", "AC", "AC", "AA", "AC", "AB"};
         //String[] gems = {"ZZZ", "YYY", "NNNN", "YYY", "BBB"};
+        //String[] gems = {"ZZZ"};
 
         System.out.println("===START1===");
         long start = System.currentTimeMillis();
-        System.out.println(solution3(gems));
+        System.out.println(solution4(gems));
         long end = System.currentTimeMillis();
         System.out.println("===END1===" + (end - start));
-
-//        System.out.println("===START1===");
-//        long start2 = System.currentTimeMillis();
-//        System.out.println(solution2(gems));
-//        long end2 = System.currentTimeMillis();
-//        System.out.println("===END1===" + (end2 - start2));
-
     }
 }
 
