@@ -1,1 +1,4 @@
-# algorithm Test
+# algorithm study
+------------------
+
+1. 
