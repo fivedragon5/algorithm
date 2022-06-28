@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.syudy;
 
 class lesson72414 {
     static String solution(String play_time, String adv_time, String[] logs) {
@@ -12,8 +12,8 @@ class lesson72414 {
             String[] time = log.split("-");
             int start = stringToSec(time[0]);
             int end = stringToSec(time[1]);
-            viewArray[start]++;
-            viewArray[end]--;
+            viewArray[start]++; // 1초에 시청을 시작하고 1초 -> viweArray[1] += 1
+            viewArray[end]--; // 10초에 종료 -> int end = 10
 
         }
 

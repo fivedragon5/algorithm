@@ -1,6 +1,7 @@
-package algorithm.programmers;
+package algorithm.programmers.syudy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ class Lesson72412 {
         //점수순 정렬
         developersList.stream().sorted(Comparator.comparing(Developer::getPoint)).collect(Collectors.toList());
 
-        //System.out.println(developersList.toString());
+        System.out.println(developersList.toString());
 
         for (String search : query) {
             String[] searchStr = search.split(" and | ");
@@ -28,7 +29,8 @@ class Lesson72412 {
             int filteredDevelopers = startPointer(developersList, point, searchStr[0], searchStr[1], searchStr[2], searchStr[3]);
             answer[index++] = filteredDevelopers;
         }
-        //System.out.println(Arrays.toString(answer));
+
+        System.out.println(Arrays.toString(answer));
         return answer;
     }
     
@@ -46,7 +48,7 @@ class Lesson72412 {
                         .filter(vo -> (position.equals("-") || vo.getPosition().equals(position)))
                         .filter(vo -> (rank.equals("-") || vo.getRank().equals(rank)))
                         .filter(vo -> (soulFood.equals("-") || vo.getSoulFood().equals(soulFood)))
-                        .filter(vo -> vo.getPoint() >= point)
+                        //.filter(vo -> vo.getPoint() >= point)
                         .collect(Collectors.toList());
         return filterDevelopers.size();
     }
