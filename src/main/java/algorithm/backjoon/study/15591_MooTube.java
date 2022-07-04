@@ -3,26 +3,31 @@ package algorithm.backjoon.study;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 class Problem15591 {
 
     static int n, q;
 
     public static void main(String srgs[]) throws IOException {
+        /** ex
+          4 3
+          1 2 3
+          2 3 2
+          2 4 4
+          1 2
+          4 1
+          3 1
+         */
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         n = Integer.parseInt(st.nextToken());
-        int q = Integer.parseInt(st.nextToken());
+        q = Integer.parseInt(st.nextToken());
 
         ArrayList<int[]>[] usado  = new ArrayList[n+1];
 
-        for(int i =1; i < n+1; i++) {
+        for(int i = 1; i < n + 1; i++) {
             usado[i] = new ArrayList<int[]>();
         }
 
@@ -34,6 +39,13 @@ class Problem15591 {
 
             usado[a].add(new int[]{b, c});
             usado[b].add(new int[]{a, c});
+        }
+
+        for (int i = 1; i <= 4; i++) {
+            System.out.println(i + "!!");
+            for(int[] arr : usado[i] ) {
+                System.out.println(Arrays.toString(arr));
+            }
         }
 
         for(int i = 1; i <= q; i++) {
