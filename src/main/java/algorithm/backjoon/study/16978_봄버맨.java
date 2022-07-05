@@ -13,10 +13,18 @@ class Problem16918 {
     static int[] j = {0,0,1,-1};
 
     public static void main(String srgs[]) throws IOException{
+        /**
+         * 6 7 3
+         * .......  OOO.OOO
+         * ...O...  OO...OO
+         * ....O..  OOO...O
+         * .......  ..OO.OO
+         * OO.....  ...OOOO
+         * OO.....  ...OOOO
+         */
 
         solve();
 
-        System.out.println("");
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         for (int i = 0; i < r; i++) {
@@ -36,13 +44,6 @@ class Problem16918 {
 
     public static void solve() throws IOException {
         /**
-         6 7 3
-         .......
-         ...O...
-         ....O..
-         .......
-         OO.....
-         OO.....
          */
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -55,35 +56,31 @@ class Problem16918 {
 
         for (int i = 0; i < r; i++) {
             String str = br.readLine();
-
             for (int j = 0; j < c; j++) {
                 if (str.charAt(j) == 'O') {
                     map[i][j] = 3;
-                }
-                else {
+                } else {
                     map[i][j] = 0;
                 }
             }
+        }
 
-            if (n == 0) return;
+        second();
+        n--;
 
-            second();
-            --n;
+        if (n == 0) return;
 
-            if (n == 0) return;
+        boolean bomb = true;
 
-            boolean bomb = true;
-
-            for (int s = 0; s < n; s++) {
-                if (bomb) {
-                    second();
-                    setup();
-                    explode();
-                }
-                else {
-                    second();
-                    explode();
-                }
+        for (int s = 0; s < n; s++) {
+            if (bomb) {
+                second();
+                setup();
+                explode();
+            }
+            else {
+                second();
+                explode();
             }
             bomb = !bomb;
         }
@@ -93,7 +90,7 @@ class Problem16918 {
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
                 if(map[i][j] > 0) {
-                    --map[i][j];
+                    map[i][j]--;
                     if(map[i][j] == 0) {
                         map[i][j] = -1;
                     }
@@ -119,12 +116,15 @@ class Problem16918 {
     }
 
     public static void explode(int x, int y) {
+        //1:3,1 // 2,1 4,1 3,0 3,2
+        //i:{1,-1,0,0}; ey 2 0 1 1
+        //j:{0,0,1,-1}; ex 3 3 4 2
         map[x][y] = 0;
         for (int index = 0; index < j.length; index++) {
             int ey = y + i[index];
             int ex = x + j[index];
-            if ((0 <= ey) && (ey < r) && (0 <= ex) && (ex < c)) {
-                map[ey][ex] = 0;
+            if ((ey >= 0) && (ex < r) && (ex >= 0) && (ey < c)) {
+                map[ex][ey] = 0;
             }
         }
     }
