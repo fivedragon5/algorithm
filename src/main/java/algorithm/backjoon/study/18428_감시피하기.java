@@ -48,6 +48,7 @@ class Problem18428 {
      S X T X S
      X X X X X
      X X S X X
+
      */
     public static void main(String srgs[]) throws IOException {
 
