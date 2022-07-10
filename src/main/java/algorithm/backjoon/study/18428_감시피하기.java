@@ -3,10 +3,7 @@ package algorithm.backjoon.study;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 class Problem18428 {
 
@@ -78,6 +75,8 @@ class Problem18428 {
 
         boolean isFind = true;
 
+        int[][] tempMap = peopleMap.clone();
+
         while (!queue.isEmpty()) {
             ArrayList<int[]> temp = queue.poll();
 
@@ -85,11 +84,9 @@ class Problem18428 {
             int[] wall_2 = temp.get(1);
             int[] wall_3 = temp.get(2);
 
-            int[][] tempMap = peopleMap.clone();
-
             tempMap[wall_1[0]][wall_1[1]] = 3;
-            tempMap[wall_2[0]][wall_1[1]] = 3;
-            tempMap[wall_3[0]][wall_1[1]] = 3;
+            tempMap[wall_2[0]][wall_2[1]] = 3;
+            tempMap[wall_3[0]][wall_3[1]] = 3;
 
             isFind = find(tempMap);
 
@@ -97,6 +94,11 @@ class Problem18428 {
                 isFind = false;
                 break;
             }
+
+            tempMap[wall_1[0]][wall_1[1]] = 0;
+            tempMap[wall_2[0]][wall_2[1]] = 0;
+            tempMap[wall_3[0]][wall_3[1]] = 0;
+
         }
 
         System.out.println(isFind ? "NO" : "YES");
@@ -139,7 +141,6 @@ class Problem18428 {
                     if(x < 0 || x >= N || y < 0 || y >= N) break;
                     if(map[y][x] == 3) break;
                     if(map[y][x] == 1) {
-                        System.out.println();
                         return true;
                     }
                 }
