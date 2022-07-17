@@ -121,7 +121,7 @@ class Probleam2174 {
         return 0;
     }
 
-    static void turnRobot(int robotNumber, int repeat, int[][] map, String direction) {
+    static void turnRobot(int robotNumber, int repeat, String direction) {
         int dRepeat = repeat % 4;
         int robotDirection = robots.get(robotNumber-1)[2];
         if (direction.equals("R")) {
