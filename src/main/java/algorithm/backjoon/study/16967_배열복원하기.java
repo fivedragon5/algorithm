@@ -33,8 +33,6 @@ class Problem16967 {
 
         //1. X,Y만큼 이동해도 관련없는 값들을 먼저 채운다.
         //2. 먼저 채운값들을 제외한 나머지 부분의 for문을 돌린다.
-
-        //1.
         for (int i = 0; i < X; i++) {
             for (int j = 0; j < arrayA[i].length; j++) {
                 arrayA[i][j] = arrayB[i][j];

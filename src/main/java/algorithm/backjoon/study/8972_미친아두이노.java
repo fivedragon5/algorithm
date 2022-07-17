@@ -99,6 +99,8 @@ class Problem8972 {
 
         Map<String, Integer> newArduinoList = new HashMap<>();
 
+        // 0,0 <-- key : 0,0 value : 0
+
         for (String key : arduinoMap.keySet()) {
             String[] keyPoint = key.split(",");
             int arduino_x = Integer.parseInt(keyPoint[1]);

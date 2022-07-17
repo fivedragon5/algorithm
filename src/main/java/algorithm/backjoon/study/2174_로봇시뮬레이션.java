@@ -89,7 +89,7 @@ class Probleam2174 {
                 }
             }
             else {
-                turnRobot(robotNumber, repeat, map, commandDirection);
+                turnRobot(robotNumber, repeat, commandDirection);
             }
         }
 
@@ -99,11 +99,11 @@ class Probleam2174 {
     static int commandF(int robotNumber, int repeat, int[][] map) {
         int x = robots.get(robotNumber-1)[0];
         int y = robots.get(robotNumber-1)[1];
-        int dircetion = robots.get(robotNumber-1)[2]%4;
+        int direction = robots.get(robotNumber-1)[2]%4;
         map[y][x] = 0;
 
-        int dy = move_y[dircetion];
-        int dx = move_x[dircetion];
+        int dy = move_y[direction];
+        int dx = move_x[direction];
 
         for (int i = 0 ; i < repeat ; i++) {
             x += dx;
