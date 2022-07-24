@@ -3,6 +3,7 @@ package algorithm.code.study;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 class Problem9935 {
@@ -16,7 +17,7 @@ class Problem9935 {
      FRULA
 
      anananananananananT
-     ant
+     anT
      */
 
     static String str;
@@ -31,10 +32,11 @@ class Problem9935 {
         boomStr = st.nextToken();
 
         //solve();
-        solve2();
+        solve3();
 
     }
-
+    
+    //시간 초과
     public static void solve() {
         int strLen = str.length();
 
@@ -48,20 +50,54 @@ class Problem9935 {
         str = strLen > 0 ? str : "FRULA";
         System.out.println(str);
     }
+    //메모리 초과
     public static void solve2() {
         int boomLen = boomStr.length();
-        char ch = boomStr.charAt(0);
-        for (int i = 0; i <= str.length() - boomLen; i++) {
-            if(str.charAt(i) == ch) {
-                String temp = str.substring(i,i+boomLen);
-                System.out.println(temp);
-                if(temp.equals(boomStr)) {
-                    str = str.substring(0,i) + str.substring((i+boomLen), str.length());
-                    i -= 2;
+        StringBuffer sb = new StringBuffer(str);
+        StringBuffer sbTemp = new StringBuffer(str);
+        for (int i = 0; i <= sb.length() - boomLen; i++) {
+            if(sb.charAt(i) == boomStr.charAt(0)) {
+
+                if(boomStr.equals(sb.substring(i, i+boomLen))) {
+                    sbTemp.delete(0,sbTemp.length());
+                    sbTemp.append(sb);
+                    sb.delete(0, sb.length());
+                    sb.append(sbTemp.substring(0,i));
+                    sb.append(sbTemp.substring((i+boomLen), sbTemp.length()));
+                    i = i - boomStr.length() > 0 ? i - boomStr.length() : -1;
                 }
             }
         }
-        str = str.length() > 0 ? str : "FRULA";
-        System.out.println(str);
+        sb = sb.length() > 0 ? sb : sb.append("FRULA");
+        System.out.println(sb);
+    }
+
+    public static void solve3() {
+
+        char[] chArr = new char[str.length()];
+        int index = 0;
+        int boomStrLength = boomStr.length();
+
+        for (int i = 0; i < str.length(); i++) {
+            chArr[index] = str.charAt(i);
+            if(str.charAt(i) == boomStr.charAt(boomStrLength-1)) {
+                if(isEquals(index, chArr)) index = index - boomStrLength;
+            }
+            index++;
+        }
+        if(index > 0) System.out.println(String.valueOf(chArr, 0, index));
+        else System.out.println("FRULA");
+
+    }
+
+    public static boolean isEquals(int index, char[] arr) {
+        if (boomStr.length() > index + 1) return false;
+
+        for (int i = 0; i < boomStr.length(); i++) {
+            if (boomStr.charAt(i) != arr[index - boomStr.length() + i + 1]) {
+                return false;
+            }
+        }
+        return true;
     }
 }

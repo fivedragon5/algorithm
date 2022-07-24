@@ -25,7 +25,7 @@ class Problem2671 {
 
         //4  : (100~1~) 패턴2-3 다음0을 만나기 전까지(SUBMARINE 처리)
 
-        //5  : (잠수함 처리)
+        //5  : (SUBMARINE 처리)
         char currentPattern = '6';
 
         String sound = st.nextToken();
