@@ -36,7 +36,7 @@ class Problem2470 {
 
         Arrays.sort(temp);
 
-        while (true) {
+        while (start < end) {
 
             if (start >= end) break;
 
