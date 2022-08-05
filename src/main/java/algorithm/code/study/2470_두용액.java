@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 class Problem2470 {
 
     public static void main(String args[]) throws IOException {
-        /** 10억 int
+        /** 10억 이기때문에 int 사용
          5
          -2 4 -99 -1 98
 
@@ -28,7 +28,7 @@ class Problem2470 {
         int end = N-1;
 
         int[] array = new int[3];
-        array[2] = 2000000000;
+        array[2] = 2000000001;
 
         for (int i = 0; i < N; i++) {
             temp[i] = Integer.parseInt(st.nextToken());

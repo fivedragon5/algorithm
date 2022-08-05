@@ -42,10 +42,17 @@ class Problem2108 {
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
+            
+            
             array[i] = a;
+            //평균을 구하기 위해 sum을 해줌
             sum += a;
+            
+            
+            //최빈값 관련
             int count = map.getOrDefault(a, 0);
             count++;
+
             map.put(a, count);
 
             if (maxCount < count) {
@@ -60,7 +67,8 @@ class Problem2108 {
                 list.add(a);
             }
         }
-
+        
+        //정렬
         Arrays.sort(array);
 
         double temp = sum/N;
