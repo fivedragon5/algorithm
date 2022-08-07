@@ -41,15 +41,14 @@ class Lesson42890 {
 
         for (int i = 2; i <= nonCandidateArray.length; i++) {
             combination(nonCandidateArray, visited, 0, i);
-            System.out.println(combinationList.toString());
+            System.out.println(combinationList.toString() +"///");
             isCandidateColumn(relation, i);
             combinationList.clear();
         }
 
         for (int i = 2; i < candidateCombination.length; i++) {
-            System.out.println(candidateCombination[i].toString());
+            System.out.println(candidateCombination[i].toString() + "aaa");
         }
-
 
         return answer;
     }
@@ -73,6 +72,7 @@ class Lesson42890 {
     //2개이상의 컬럼
     static boolean isCandidateColumn(String[][] relation, int pickCount) {
         HashMap<String, Integer> map = new HashMap<>();
+        List<String> list = new LinkedList<>();
 
         for (int j = 0; j < combinationList.size(); j++) {
             boolean isFlag = true;
@@ -94,10 +94,12 @@ class Lesson42890 {
                 for (int index : combinationList.get(j)) {
                     indexStr.append(index);
                 }
-                //list를 String으로 append한다음 add 할것
-                //candidateCombination[pickCount].add(combinationList.get(j));
+
+                list.add(indexStr.toString());
             }
         }
+
+        candidateCombination[pickCount].add(list);
 
         return true;
     }
@@ -125,7 +127,7 @@ class Lesson42890 {
 
         if(list.size() > 2) {
             //최소성 테스트 로직 추가
-
+            //for(String str : candidateCombination[list.size()-1])
         }
 
         combinationList.add(list);
