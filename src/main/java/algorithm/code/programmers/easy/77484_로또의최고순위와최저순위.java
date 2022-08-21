@@ -7,8 +7,8 @@ class Lesson77484 {
         int[] answer = new int[2];
         int correctCount = 0;
         int zeroCount = 0;
-        Arrays.sort(lottos);
-        Arrays.sort(win_nums);
+        //Arrays.sort(lottos);
+        //Arrays.sort(win_nums);
 
         for(int i = 0 ; i < lottos.length ; i++) {
             if(lottos[i] == 0) {
