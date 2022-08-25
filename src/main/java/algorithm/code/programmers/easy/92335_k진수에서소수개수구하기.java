@@ -1,4 +1,4 @@
-package algorithm.code.programmers;
+package algorithm.code.programmers.easy;
 
 class Lesson92335 {
     static int solution(int n, int k) {

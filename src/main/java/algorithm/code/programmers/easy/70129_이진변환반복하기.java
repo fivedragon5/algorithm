@@ -1,4 +1,4 @@
-package algorithm.code.programmers;
+package algorithm.code.programmers.easy;
 
 class Lesson70129 {
     static int[] solution(String s) {

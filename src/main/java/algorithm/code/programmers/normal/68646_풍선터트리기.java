@@ -1,4 +1,4 @@
-package algorithm.code.programmers;
+package algorithm.code.programmers.normal;
 
 class Lesson68646 {
     /*
