@@ -1,59 +1,46 @@
 package algorithm.code.programmers;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Arrays;
 
 class Lesson77885 {
 
     public static void main(String[] args) {
-        long[] numbers = {2,7};
+        long[] numbers = {2,7,11};
         System.out.println("===START===");
         System.out.println(solution(numbers));
         System.out.println("===END===");
     }
 
     static long[] solution(long[] numbers) {
-        List<Integer> list = new LinkedList<>();
+
+        int index = 0;
 
         for(long number : numbers) {
-            list.add(minNumber((int) number));
+            if(number%2 == 0) numbers[index++] = number+1;
+            else numbers[index++] = minNumber(number);
         }
 
-        long[] answer = new long[list.size()];
-
-        for (int i = 0; i < answer.length; i++) {
-            answer[i] = list.get(i);
-        }
-
-        return answer;
+        return numbers;
     }
 
-    static int minNumber(int start) {
-        //String startStr = Integer.toBinaryString(start);
-        StringBuffer startStr = new StringBuffer(Integer.toBinaryString(start));
+    static long minNumber(long start) {
+        StringBuilder startStr = new StringBuilder(Long.toBinaryString(start));
+        String str = Long.toBinaryString(start);
 
-        int index = startStr.lastIndexOf("0");
-        System.out.println("1," + startStr);
-        if (index > -1) {
-            startStr = startStr.replace(index, index,"1");
-        }
-
-        System.out.println("0," + startStr);
-
-        return 0;
-    }
-
-    static boolean isDiff(StringBuffer str1, StringBuffer str2) {
-        int count = 0;
-        for (int i = 0; i < str1.length(); i++) {
-            if (str1.charAt(i) != str2.charAt(i)) {
-                count++;
+        if (str.contains("0")) {
+            int index = str.lastIndexOf('0');
+            startStr.setCharAt(index, '1');
+            if (index != startStr.length()-1) {
+                startStr.setCharAt(index+1, '0');
             }
-            if (count > 2) return false;
         }
-        return true;
-    }
+        else {
+            startStr.setCharAt(0, '0');
+            startStr.insert(0,"1");
+        }
 
+        return Long.parseLong(startStr.toString(),2);
+    }
 /**
  * 시간초과
  */
