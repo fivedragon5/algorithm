@@ -24,19 +24,14 @@ import java.util.List;
 class Lesson87390 {
     static int[] solution(int n, long left, long right) {
         List<Long> list = new ArrayList<>();
-
         int[] answer = new int[(int) (right-left)+1];
-
         for (long i = left; i < right+1; i++) {
             list.add(Math.max(i/n, i%n) + 1);
         }
-
         int index = 0;
-
         for (long number : list) {
             answer[index++] = (int) number;
         }
-
         return answer;
     }
 
