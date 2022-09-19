@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 /**
@@ -12,6 +13,14 @@ import java.util.StringTokenizer;
      10
      20
      40
+
+    3
+    30
+    70
+    20
+
+    1
+    10
  */
 class Problem1715 {
 
@@ -24,19 +33,26 @@ class Problem1715 {
 
         int N = Integer.parseInt(st.nextToken());
 
-        int[] cards = new int[N];
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
-            cards[i] = Integer.parseInt(st.nextToken());
+            queue.add(Integer.parseInt(st.nextToken()));
         }
 
-        Arrays.sort(cards);
+        int sum = 0;
 
-        int sum = cards[0];
+        while (queue.size() > 1) {
+            int min_1 = queue.poll();
+            int min_2 = queue.poll();
 
-        for (int i = 1; i < cards.length; i++) {
-            sum += cards[i];
+            int plusMin = min_1 + min_2;
+
+            sum += plusMin;
+
+            queue.add(plusMin);
         }
+
+        System.out.println(sum);
     }
 }
