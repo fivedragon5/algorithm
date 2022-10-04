@@ -1,4 +1,4 @@
-package algorithm.code.study;
+package algorithm.code.baekjoon;
 
 import java.io.*;
 import java.util.ArrayDeque;
