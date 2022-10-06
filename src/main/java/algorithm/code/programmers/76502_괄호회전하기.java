@@ -13,7 +13,9 @@ class Lesson76502 {
         for(int i = 0; i < sLength; i++) {
             isFlag = true;
             for(int j = 0; j < sLength; j++) {
+
                 ch = s.charAt((i+j)%sLength);
+
                 if ('{' == ch || '[' == ch || '(' == ch) {
                     stack.add(ch);
                 }
@@ -31,7 +33,7 @@ class Lesson76502 {
                     if(stack.pop() != '(') isFlag = false;
                 }
                 if (!isFlag) {
-                    isFlag = false;
+                    //isFlag = false;
                     break;
                 }
             }

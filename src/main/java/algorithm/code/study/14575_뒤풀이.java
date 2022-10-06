@@ -70,7 +70,6 @@ class Problem14575 {
             for (int p = 0; p < N; p++) {
                 alcohol_total -= people[p][0];
                 more += Math.min(middle - people[p][0], people[p][1]-people[p][0]);
-
             }
 
             if (more >= alcohol_total) {

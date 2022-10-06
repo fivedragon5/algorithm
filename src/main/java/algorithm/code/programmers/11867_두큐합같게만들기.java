@@ -1,8 +1,6 @@
 package algorithm.code.programmers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Queue;
 
 class Lesson118667 {
     /**
@@ -17,7 +15,7 @@ class Lesson118667 {
      * 주의: 언어에 따라 합 계산 과정 중 산술 오버플로우 발생 가능성이 있으므로 long type 고려가 필요합니다.
      */
     static int solution(int[] queue1, int[] queue2) {
-        int answer = -1;
+        int answer = 1000000;
         int totalLength = queue1.length*2;
         int divideLength = queue1.length;
         int sumElement = 0;
@@ -32,18 +30,14 @@ class Lesson118667 {
 
         int sumDivide = sumElement/2;
 
-        System.out.println(sumDivide);
-
         int left = 0;
         int right = 0;
-        int sum = queue[0];
+        long sum = queue[0];
 
         while (left < totalLength) {
             if(right >= totalLength-1 && sum <= sumDivide) {
                 break;
             }
-
-            System.out.println("(" + left + "," + right + ")" + "///" + sum);
 
             if (sum == sumDivide) {
                 answerList.add(new int[]{left,right});
@@ -74,21 +68,30 @@ class Lesson118667 {
                     array[1] > divideLength-1
             ) {
                 //걸칠경우
-                return array[0] + array[1] - divideLength + 1;
+                answer = Math.min(answer, array[0] + array[1] - divideLength + 1);
             }
             else {
                 //안걸칠경우
+                int leftPer = array[0] % divideLength;
+                int rightPer = divideLength - (array[1] % divideLength) - 1;
+                if (rightPer == 0) {
+                    Math.min(answer, leftPer);
+                }
+                else {
+                    return Math.min(answer, divideLength + (leftPer * 2) + array[1] - array[0] + 1);
+                }
             }
         }
-
         return answer;
     }
 
     public static void main(String[] args) {
-        int[] queue1 = {3, 2, 7, 2};
-        int[] queue2 = {4, 6, 5, 1};
+        //int[] queue1 = {3, 2, 7, 2};
+        //int[] queue2 = {4, 6, 5, 1};
         //int[] queue1 = {1,2,1,2};
         //int[] queue2 = {1,10,1,2};
+        int[] queue1 = {1,1};
+        int[] queue2 = {1,5};
         System.out.println("===START===");
         System.out.println(solution(queue1, queue2));
         System.out.println("===END===");
