@@ -18,7 +18,7 @@ class Lesson118667 {
         int answer = 1000000;
         int totalLength = queue1.length*2;
         int divideLength = queue1.length;
-        int sumElement = 0;
+        long sumElement = 0;
         int[] queue = new int[totalLength];
         ArrayList<int[]> answerList = new ArrayList<>();
 
@@ -28,7 +28,7 @@ class Lesson118667 {
             sumElement = sumElement + queue1[i] + queue2[i];
         }
 
-        int sumDivide = sumElement/2;
+        long sumDivide = sumElement/2;
 
         int left = 0;
         int right = 0;
@@ -63,22 +63,24 @@ class Lesson118667 {
         for(int[] array: answerList) {
             //System.out.println(Arrays.toString(array));
             //걸칠경우 or 안걸칠경우
+            int leftPer = array[0] % divideLength;
+            int rightPer = divideLength - (array[1] % divideLength) - 1;
+
             if (
                     array[0] <= divideLength-1 &&
                     array[1] > divideLength-1
             ) {
                 //걸칠경우
                 answer = Math.min(answer, array[0] + array[1] - divideLength + 1);
+                answer = Math.min(answer, leftPer + divideLength - rightPer);
             }
             else {
                 //안걸칠경우
-                int leftPer = array[0] % divideLength;
-                int rightPer = divideLength - (array[1] % divideLength) - 1;
                 if (rightPer == 0) {
-                    Math.min(answer, leftPer);
+                    answer = Math.min(answer, leftPer);
                 }
                 else {
-                    return Math.min(answer, divideLength + (leftPer * 2) + array[1] - array[0] + 1);
+                    answer =  Math.min(answer, divideLength + (leftPer * 2) + array[1] - array[0] + 1);
                 }
             }
         }
@@ -90,8 +92,10 @@ class Lesson118667 {
         //int[] queue2 = {4, 6, 5, 1};
         //int[] queue1 = {1,2,1,2};
         //int[] queue2 = {1,10,1,2};
-        int[] queue1 = {1,1};
-        int[] queue2 = {1,5};
+        //int[] queue1 = {1,1};
+        //int[] queue2 = {1,5};
+        int[] queue1 = {10,1,3};
+        int[] queue2 = {7,7,8};
         System.out.println("===START===");
         System.out.println(solution(queue1, queue2));
         System.out.println("===END===");
