@@ -36,44 +36,42 @@ class Lesson87377 {
 
         Set<String> set = new HashSet<>();
 
-        int minX = Integer.MAX_VALUE;
-        int maxX = Integer.MIN_VALUE;
+        long minX = Long.MAX_VALUE;
+        long maxX = Long.MIN_VALUE;
 
-        int minY = Integer.MAX_VALUE;
-        int maxY = Integer.MIN_VALUE;
+        long minY = Long.MAX_VALUE;
+        long maxY = Long.MIN_VALUE;
 
-        float x = 0;
-        float y = 0;
-        int check = 0;
+        long check = 0;
 
         for (int i = 0; i < line.length - 1; i++) {
             for (int j = i+1; j < line.length; j++) {
-                check = (line[i][0] * line[j][1]) - (line[i][1] * line[j][0]);
+                check = (long)line[i][0] * (long)line[j][1] - (long)line[i][1] * (long)line[j][0];
                 if(check != 0) {
-                    x = (float) ((line[i][1] * line[j][2]) - (line[i][2] * line[j][1])) / check;
-                    y = (float) ((line[i][2] * line[j][0]) - (line[i][0] * line[j][2])) / check;
-                    if (x%1 == 0 && y%1 == 0) {
-                        minX = Math.min(minX, (int) x);
-                        maxX = Math.max(maxX, (int) x);
+                    double x = (((long)line[i][1] * (long)line[j][2] - (long)line[i][2] * (long)line[j][1]) / check);
+                    double y = (((long)line[i][2] * (long)line[j][0] - (long)line[i][0] * (long)line[j][2]) / check);
+                    System.out.println((int)x + "..." + (int)y);
+                    if (x % 1 == 0 && y % 1 == 0) {
+                        minX = Math.min(minX,(int) x);
+                        maxX = Math.max(maxX,(int) x);
 
-                        minY = Math.min(minY, (int) y);
-                        maxY = Math.max(maxY, (int) y);
+                        minY = Math.min(minY,(int) y);
+                        maxY = Math.max(maxY,(int) y);
 
-                        set.add((int) x + "," + (int) y);
+                        set.add((int)x + "," + (int)y);
                     }
                 }
             }
         }
 
-        int lengthX = maxX - minX + 1;
-        int lengthY = maxY - minY + 1;
+        long lengthX = (long) (maxX - minX + 1);
+        long lengthY = (long) (maxY - minY + 1);
 
-        String[] answer = new String[lengthY];
-        String[][] answerArray = new String[lengthY][lengthX];
-        Arrays.fill(answerArray,".");
-
-        int moveX = Math.abs(minX-0);
-        int moveY = Math.abs(minY-0);
+        String[] answer = new String[(int) lengthY];
+        String[][] answerArray = new String[(int) lengthY][(int) lengthX];
+        for (String[] fill : answerArray) {
+            Arrays.fill(fill, ".");
+        }
 
         /**
          1. set에 있는 좌표들을 순회
@@ -83,11 +81,21 @@ class Lesson87377 {
          */
         for (String point : set) {
             String[] points = point.split(",");
+            answerArray[Integer.parseInt(points[1])-(int)minY][Integer.parseInt(points[0])-(int)minX] = "*";
         }
 
+        StringBuilder sb = new StringBuilder();
 
-        System.out.println(set.toString());
-        System.out.println(lengthX + ",," + lengthY);
+        for (int i = 0; i < lengthY; i++) {
+            sb = new StringBuilder();
+            for (int j = 0; j < lengthX; j++) {
+                sb.append(answerArray[i][j]);
+            }
+            answer[(int)lengthY-i-1] = sb.toString();
+        }
+
+        System.out.println(Arrays.toString(answer));
+
 
         return answer;
     }
