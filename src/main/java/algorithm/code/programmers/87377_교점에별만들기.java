@@ -42,33 +42,32 @@ class Lesson87377 {
         long minY = Long.MAX_VALUE;
         long maxY = Long.MIN_VALUE;
 
-        long check = 0;
+        long under = 0;
 
         for (int i = 0; i < line.length - 1; i++) {
             for (int j = i+1; j < line.length; j++) {
-                check = (long)line[i][0] * (long)line[j][1] - (long)line[i][1] * (long)line[j][0];
-                if(check != 0) {
-                    double x = (((long)line[i][1] * (long)line[j][2] - (long)line[i][2] * (long)line[j][1]) / check);
-                    double y = (((long)line[i][2] * (long)line[j][0] - (long)line[i][0] * (long)line[j][2]) / check);
-                    System.out.println((int)x + "..." + (int)y);
+                under = (long)line[i][0] * (long)line[j][1] - (long)line[i][1] * (long)line[j][0];
+                if(under != 0) {
+                    double x = (double) ((long)line[i][1] * (long)line[j][2] - (long)line[i][2] * (long)line[j][1]) / under;
+                    double y = (double) ((long)line[i][2] * (long)line[j][0] - (long)line[i][0] * (long)line[j][2]) / under;
                     if (x % 1 == 0 && y % 1 == 0) {
-                        minX = Math.min(minX,(int) x);
-                        maxX = Math.max(maxX,(int) x);
+                        minX = Math.min(minX,(long) x);
+                        maxX = Math.max(maxX,(long) x);
 
-                        minY = Math.min(minY,(int) y);
-                        maxY = Math.max(maxY,(int) y);
+                        minY = Math.min(minY,(long) y);
+                        maxY = Math.max(maxY,(long) y);
 
-                        set.add((int)x + "," + (int)y);
+                        set.add((long)x + "," + (long)y);
                     }
                 }
             }
         }
 
-        long lengthX = (long) (maxX - minX + 1);
-        long lengthY = (long) (maxY - minY + 1);
+        int lengthX =  (int) (maxX - minX + 1);
+        int lengthY =  (int) (maxY - minY + 1);
 
-        String[] answer = new String[(int) lengthY];
-        String[][] answerArray = new String[(int) lengthY][(int) lengthX];
+        String[] answer = new String[lengthY];
+        String[][] answerArray = new String[lengthY][lengthX];
         for (String[] fill : answerArray) {
             Arrays.fill(fill, ".");
         }
@@ -81,7 +80,9 @@ class Lesson87377 {
          */
         for (String point : set) {
             String[] points = point.split(",");
-            answerArray[Integer.parseInt(points[1])-(int)minY][Integer.parseInt(points[0])-(int)minX] = "*";
+            int pointY = (int) (Long.parseLong(points[1]) - minY);
+            int pointX = (int) (Long.parseLong(points[0]) - minX);
+            answerArray[pointY][pointX] = "*";
         }
 
         StringBuilder sb = new StringBuilder();
@@ -91,11 +92,10 @@ class Lesson87377 {
             for (int j = 0; j < lengthX; j++) {
                 sb.append(answerArray[i][j]);
             }
-            answer[(int)lengthY-i-1] = sb.toString();
+            answer[lengthY-i-1] = sb.toString();
         }
 
-        System.out.println(Arrays.toString(answer));
-
+        //System.out.println(Arrays.toString(answer));
 
         return answer;
     }
