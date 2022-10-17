@@ -53,16 +53,17 @@ class Probleam13199 {
             int couponChicken = coupon / F;
 
             int couponRemainder = coupon % F + couponChicken * C;
-            long plus = 0;
 
-            while (couponRemainder >= F) {
+            int plus = couponRemainder - F / F - C + 1;
 
-                int temp = couponRemainder / F;
-                plus += temp;
-                couponRemainder = couponRemainder % F;
-                couponRemainder += temp * C;
-
-            }
+//            while (couponRemainder >= F) {
+//
+//                int temp = couponRemainder / F;
+//                plus += temp;
+//                couponRemainder = couponRemainder % F;
+//                couponRemainder += temp * C;
+//
+//            }
             System.out.println(plus);
         }
     }
