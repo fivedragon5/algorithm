@@ -49,13 +49,16 @@ class Probleam13199 {
             F = Integer.parseInt(st.nextToken());
             C = Integer.parseInt(st.nextToken());
 
-            int coupon = M / P * C;
-            int couponChicken = coupon / F;
+            int taotalCoupon = M / P * C;
+            int couponChicken = taotalCoupon / F;
+            int plus = 0;
 
-            int couponRemainder = coupon % F + couponChicken * C;
+            if (taotalCoupon >= F) {
+                plus = (taotalCoupon - F) / (F - C) + 1;
+            }
 
-            int plus = couponRemainder - F / F - C + 1;
-
+            plus -= couponChicken;
+//시간초과
 //            while (couponRemainder >= F) {
 //
 //                int temp = couponRemainder / F;
