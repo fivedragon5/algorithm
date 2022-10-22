@@ -41,6 +41,9 @@ class Problem1744 {
         Collections.sort(negatives);
 
         if(positives.size() % 2 != 0) answer += positives.get(0);
+        
+        //더할때 int의 범위를 넘어 갈 수 있음.
+        //casting 하면서 시도해볼것
 
         for (int i = positives.size()-1; i > 0; i -= 2) {
             answer += positives.get(i) * positives.get(i-1);
