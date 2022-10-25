@@ -27,12 +27,14 @@ class Problem1744 {
         List<Integer> positives = new ArrayList<>();
         List<Integer> negatives = new ArrayList<>();
         boolean isExistZero = false;
+        int oneCount = 0;
         long answer = 0;
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             int number = Integer.parseInt(st.nextToken());
-            if(number > 0) positives.add(number);
+            if (number == 1) oneCount++;
+            else if(number > 0) positives.add(number);
             else if(number < 0) negatives.add(number);
             else if(number == 0) isExistZero = true;
         }
@@ -58,6 +60,8 @@ class Problem1744 {
                 answer += negatives.get(negatives.size()-1);
             }
         }
+
+        answer += oneCount;
 
         System.out.println(answer);
     }
