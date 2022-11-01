@@ -9,9 +9,13 @@ import java.util.StringTokenizer;
 
 class Problem14500 {
 
+    static int[] dx = {0,1,0,-1};
+    static int[] dy = {1,0,-1,0};
+
     static int MAX = 0;
     static int N, M; //y, x
     static int[][] map;
+    static boolean[][] vistied;
 
     /**
       4 ≤ N, M ≤ 500
@@ -27,6 +31,7 @@ class Problem14500 {
         M = Integer.parseInt(st.nextToken());
 
         map = new int[N][M];
+        vistied = new boolean[N][M];
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
@@ -35,39 +40,45 @@ class Problem14500 {
             }
         }
 
-
         for (int i = 0; i < N; i++) {
             for(int j = 0; j < M; j++) {
-                int sum = map[i][j];
-                List<String> list = new LinkedList<>();
-                list.add("(" + j + "," + i + ")");
-                solve(j, i, 1, sum, list);
+                vistied[i][j] = true;
+                solve(j, i, 1, map[i][j]);
+                vistied[i][j] = false;
             }
         }
 
-        System.out.println("a"+MAX);
-
-        
+        System.out.println(MAX);
     }
 
-    static void solve(int x, int y, int step, int sum, List<String> list) {
+    static void solve(int x, int y, int step, int sum) {
 
-        if (list.size() == 4) {
-            System.out.println(sum + "/" + list.toString());
+        if (step == 4) {
             MAX = Math.max(MAX, sum);
             return;
         }
 
-        if (x+1 < M) {
-            List<String> listX = list;
-            listX.add("(" +(x+1) + "," + y + ")");
-            solve(x+1, y, step+1, sum + map[y][x+1], listX);
-        }
+        for (int i = 0; i < 4; i++) {
+            int nextX = x + dx[i];
+            int nextY = y + dy[i];
+            
+            // map을 벗어날경우 처리
+            if (nextX < 0 || nextY < 0 || nextX >= M || nextY >= N) {
+                continue;
+            }
 
-        if (y+1 < N) {
-            List<String> listY = list;
-            listY.add("(" + x + "," + (y+1) + ")");
-            solve(x, y+1, step+1, sum + map[y+1][x], listY);
+            if (!vistied[nextY][nextX]) {
+
+                if (step == 2) {
+                    vistied[nextY][nextX] = true;
+                    solve(x, y, step + 1, sum + map[nextY][nextX]);
+                    vistied[nextY][nextX] = false;
+                }
+
+                vistied[nextY][nextX] = true;
+                solve(nextX, nextY, step + 1, sum + map[nextY][nextX]);
+                vistied[nextY][nextX] = false;
+            }
         }
     }
 }
