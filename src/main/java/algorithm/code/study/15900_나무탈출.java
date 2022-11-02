@@ -6,24 +6,27 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-class Problem19542 {
+class Problem15900 {
 
     /**
-        1 <= N <= 100,000
-        1 <= S <= N
-        0 <= D <= N
-     */
+        2 ≤ N ≤ 500,000
+        1 <= a,b <= N
+        a != b (a,b 사이에 간선 존재)
+        ROOT 1번 정점
+        성원이가 먼저 시작
 
-    static boolean vistied[];
+        자식이 없는 노드 = 리프노드
+        리프노드에서 루트까지의 거리의 총합 : sum
+        sum == 홀수 ? Yes : No
+
+     */
 
     public static void main(String args[]) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int N = Integer.parseInt(st.nextToken()); // 노드 개수
-        int S = Integer.parseInt(st.nextToken()); // 캐니 소프트 위치
-        int D = Integer.parseInt(st.nextToken()); // 힘
+        int N = Integer.parseInt(st.nextToken());
 
         ArrayList<ArrayList<Integer>> roads = new ArrayList<>();
 
@@ -33,27 +36,36 @@ class Problem19542 {
 
         for (int i = 0; i < N - 1; i++) {
             st = new StringTokenizer(br.readLine());
-            roads.get(Integer.parseInt(st.nextToken())).add(Integer.parseInt(st.nextToken()));
+            roads.get(Integer.parseInt(st.nextToken())-1).add(Integer.parseInt(st.nextToken())-1);
         }
-        
-        //캐니 소프트 시작
-        vistied[S-1] = true;
 
         for(ArrayList<Integer> al : roads) {
             System.out.println(al.toString());
         }
-
-
     }
 }
 
 /**
- 6 1 1
+ 2
+ 2 1
+
+ Yes
+
+ 4
  1 2
  2 3
  2 4
- 3 5
- 5 6
 
- 6
+ No
+
+ 8
+ 8 1
+ 1 4
+ 7 4
+ 6 4
+ 6 5
+ 1 3
+ 2 3
+
+ No
  */
