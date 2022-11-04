@@ -18,7 +18,6 @@ class Problem15900 {
         자식이 없는 노드 = 리프노드
         리프노드에서 루트까지의 거리의 총합 : sum
         sum == 홀수 ? Yes : No
-
      */
 
     static ArrayList<ArrayList<Integer>> roads = new ArrayList<>();
