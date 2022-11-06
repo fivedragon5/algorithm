@@ -11,8 +11,12 @@ class Problem24230 {
     /**
      트리의 ROOT 는 항상 1
      1 <= N <= 200,000
-
      */
+
+    static int[] colors;
+    static ArrayList<ArrayList<Integer>> trees = new ArrayList<>();
+    static int answer = 0;
+    static boolean[] visited;
 
     public static void main(String args[]) throws IOException {
 
@@ -21,13 +25,13 @@ class Problem24230 {
 
         int N = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
-        int[] colors = new int[N];
-        ArrayList<ArrayList<Integer>> trees = new ArrayList<>();
+        colors = new int[N+1];
+        visited = new boolean[N+1];
         trees.add(new ArrayList<Integer>());
 
         for (int i = 0; i < N; i++) {
             trees.add(new ArrayList<Integer>());
-            colors[i] = Integer.parseInt(st.nextToken());
+            colors[i+1] = Integer.parseInt(st.nextToken());
         }
 
         for (int i = 0; i < N - 1; i++) {
@@ -39,11 +43,33 @@ class Problem24230 {
             trees.get(end).add(start);
         }
 
-        for (ArrayList<Integer> list : trees) {
-            System.out.println(list.toString());
-        }
+//        for (int i = 1; i <= N; i++) {
+//            System.out.println(colors[i] + ":" + trees.get(i).toString());
+//        }
 
+        if (colors[1] != 0) answer = 1;
+
+        visited[1] = true;
+        solve(1);
+
+        System.out.println(answer);
     }
+
+    static void solve(int point) {
+        int currentColor = colors[point];
+        visited[point] = true;
+
+        for (int nextPoint : trees.get(point)) {
+            if(!visited[nextPoint]) {
+                int nextColor = colors[nextPoint];
+                if (currentColor != nextColor) {
+                    answer += 1;
+                }
+                solve(nextPoint);
+            }
+        }
+    }
+
 }
 
 /**
