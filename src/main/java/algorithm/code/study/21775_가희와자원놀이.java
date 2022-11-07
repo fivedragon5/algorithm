@@ -43,11 +43,12 @@ class Problem21775 {
             // 현재 순서의 사람이 acquire 카드를 들고 있을 경우 손에있는 acquire카드를 바로 사용 한다.
             if (getAcquire[turn][0] != 0) {
                 System.out.println(getAcquire[turn][0]);
-                int currentCard = commonCards.getOrDefault(getAcquire[turn][1], 0);
-                if (currentCard == 0) {
+                int getCardNumber = getAcquire[turn][1];
+                if (!commonCards.containsKey(getCardNumber)) {
                     //공용에 있을경우 카드를 가지고 온다.
-                    commonCards.put(currentCard, turn);
+                    commonCards.put(getCardNumber, turn);
                     getAcquire[turn][0] = 0;
+                    getAcquire[turn][1] = 0;
                 }
             }
 
@@ -64,7 +65,7 @@ class Problem21775 {
                 if ("acquire".equals(sb.toString())) {
                     int number = Integer.parseInt(st.nextToken());
                     // 선택된 숫자가 공용 공간에 있을 경우
-                    if (commonCards.getOrDefault(number, 0) == 0) {
+                    if (!commonCards.containsKey(number)) {
                         commonCards.put(number, turn);
                     }
                     // 선택된 숫자가 공용 공간에 없을 경우
@@ -75,7 +76,7 @@ class Problem21775 {
                 }
                 else if ("release".equals(sb.toString())) {
                     int number = Integer.parseInt(st.nextToken());
-                    commonCards.put(number, 0);
+                    commonCards.remove(number);
                 }
             }
         }
