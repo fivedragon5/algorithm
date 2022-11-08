@@ -9,15 +9,23 @@ import java.util.StringTokenizer;
 class Problem15900 {
 
     /**
+     * 풀이)
+     * 루트노드 ~ 모든 리프노드(자식이 없는 노드) 거리의 합을 구해서 품
+     *
+     * 1. 입력된 값을 바탕으로 노드간 간선을 연결한 arrayList 만들기
+     * 2. 루트노드에서부터 순회 시작, DFS, 순회하면서 step을 늘려나감
+     * 3. 순회중 노드가 리프노드일경우 중지하고 리프노드의 값을 저장
+     *
+     * 설명)
+     * arrayList roads : 트리 정보
+     * step : 거리
+
+        문제 조건)
         2 ≤ N ≤ 500,000
         1 <= a,b <= N
         a != b (a,b 사이에 간선 존재)
         ROOT 1번 정점
         성원이가 먼저 시작
-
-        자식이 없는 노드 = 리프노드
-        리프노드에서 루트까지의 거리의 총합 : sum
-        sum == 홀수 ? Yes : No
      */
 
     static ArrayList<ArrayList<Integer>> roads = new ArrayList<>();
@@ -59,11 +67,10 @@ class Problem15900 {
                 dfs(num, step+1);
             }
         }
-
+        
         if (roads.get(node).size() == 1) {
             leafSum += step;
         }
-
     }
 }
 

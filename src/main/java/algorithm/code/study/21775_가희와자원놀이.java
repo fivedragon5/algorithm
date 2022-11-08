@@ -9,11 +9,27 @@ import java.util.StringTokenizer;
 class Problem21775 {
 
     /**
+     * 풀이)
+     * 각턴을 수행한 사람의 정보를 가지고있는 배열을 순회하면서 출력
+     * 1. 각 턴을 진행할때마다 해당 player가 acquire들고 있는지 확인
+     * 2. next, relase 카드는 그대로 id출력
+     * 3. acquire카드일경우 공용 공간에서 카드의 소유자 update
+     *
+     * 설명)
+     * 1. 공동 공간 카드의 소유자를 표시해주는 배열 int[2*10^9] : commonCards
+     * 2. 공동 공간 카드의 소유자를 표시해주는 map(cardNumber,playerNumber) Map<Integer,Integer> : commonCards
+     *
+     * 플레이어가 들고있는 acquire 카드 정보 int[N+1][2] : getAcquire
+     *  - getAcquire[N][0] : acquire카드의 Id (출력용)
+     *  - getAcquire[N][1] : acquire카드의 number
+
+     문제 조건)
      1 ≤ N ≤ T ≤ 5×10^5
      1 ≤ 턴을 수행하는 사람의 번호 ≤ N
      1 ≤ acquire나 release 연산에서 등장하는 수 ≤ 2×10^9
      자원 카드 n을 획득한 사람이 다시 acquire n을 수행하는 경우는 주어지지 않습니다.
-     획득하지 않은 자원 카드를 release 하는 경우는 주어지지 않습니다.
+
+     ***획득하지 않은 자원 카드를 release 하는 경우는 주어지지 않습니다.***
      1 ≤ 더미에 있는 연산 카드의 id ≤ 5×10^5
      더미에 있는 연산 카드의 id는 모두 다릅니다.
      */

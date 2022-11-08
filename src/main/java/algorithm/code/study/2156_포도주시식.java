@@ -14,7 +14,7 @@ class Problem2156 {
      6 10 13 9 8 1
      */
 
-    //1일때 DP[i] i개의 잔중 최대로 마실 수 있는 값
+    //DP[i] : i개의 잔중 최대로 마실 수 있는 값
     //DP[i] = DP[1] + DP[2] + ... + DP[i-1]
     //DP[1] = wines[0]
     //DP[2] = wines[0] + wines[1]
@@ -36,13 +36,7 @@ class Problem2156 {
             st = new StringTokenizer(br.readLine());
             wines[i] = Integer.parseInt(st.nextToken());
         }
-
-
-
-
     }
-
-
 }
 
 /**
