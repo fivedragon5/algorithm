@@ -1,4 +1,4 @@
-package algorithm.code.study;
+package algorithm.code.baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -163,7 +163,7 @@ class Problem21775 {
 //    }
 }
 
-/**
+/*
  2 10
  1 1 2 2 1 1 2 2 2 2
  1 next
@@ -176,5 +176,4 @@ class Problem21775 {
  8 acquire 2000000000
  9 next
  10 next
-
 */
