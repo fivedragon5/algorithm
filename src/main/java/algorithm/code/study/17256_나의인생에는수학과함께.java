@@ -8,6 +8,15 @@ import java.util.StringTokenizer;
 class Problem17256 {
 
     /**
+     *  접근)
+     *  (1,1)에서 (N,N)까지 최단거리로 가면서 계산후 (N,N)에 도착했을경우 max, min값을 최신화 시켜준다.
+     *  1. 숫자, 연산기호를 저장할 String이차원배열을 선언 후 저장 [y][x]
+     *  2. (0,0) 부터 최단거리로 가기위해
+     *
+     *  풀이)
+     *
+     *
+     * 문제 조건)
      * 첫 번째 줄에는 지도의 크기 N이 주어진다. (3 ≤ N ≤ 5, N은 홀수)
      * 그 다음 N 줄에는 N개의 숫자 또는 연산자가 빈칸을 사이에 두고 주어지며, 세현이네 집 (1, 1)과 학교 (N, N)는 반드시 숫자로 주어진다.
      * 그리고 숫자 다음에는 연산자, 연산자 다음에는 숫자가 나오도록 주어진다.
@@ -17,7 +26,6 @@ class Problem17256 {
 
     static int N;
     static String map[][];
-    static boolean[][] visited;
     static int max = -Integer.MAX_VALUE;
     static int min = Integer.MAX_VALUE;
 
@@ -28,8 +36,7 @@ class Problem17256 {
 
         N = Integer.parseInt(st.nextToken());
         map = new String[N][N];
-        visited = new boolean[N][N];
-        
+
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < N; j++) {
@@ -43,29 +50,24 @@ class Problem17256 {
     }
 
     static void moveRoad(int x, int y, int sum, boolean isNumber) {
-        visited[y][x] = true;
-        System.out.println("(" + x + "," + y + ")");
+
         for (int i = 0; i < 2; i++) {
             if (x+1 < N) {
-                if(!visited[y][x+1]) {
-                    int rightSum = sum;
-                    if(!isNumber) {
-                        rightSum = calc(sum, Integer.parseInt(map[y][x+1]), x, y);
-                    }
-                    moveRoad(x + 1, y, rightSum, !isNumber);
+                int rightSum = sum;
+                if(!isNumber) {
+                    rightSum = calc(sum, Integer.parseInt(map[y][x+1]), map[y][x]);
                 }
+                moveRoad(x + 1, y, rightSum, !isNumber);
             }
             if (y+1 < N) {
-                if(!visited[y+1][x]) {
-                    int downSum = sum;
-                    if(!isNumber) {
-                        downSum = calc(sum, Integer.parseInt(map[y+1][x]), x, y);
-                    }
-                    moveRoad(x, y + 1, downSum, !isNumber);
+                int downSum = sum;
+                if(!isNumber) {
+                    downSum = calc(sum, Integer.parseInt(map[y+1][x]), map[y][x]);
                 }
+                moveRoad(x, y + 1, downSum, !isNumber);
             }
+
             if (x == N-1 && y == N-1) {
-                System.out.println(sum);
                 max = Math.max(max, sum);
                 min = Math.min(min, sum);
                 return;
@@ -73,8 +75,7 @@ class Problem17256 {
         }
     }
 
-    static int calc(int sum, int number, int operationX, int operationY) {
-        String operation = map[operationY][operationX];
+    static int calc(int sum, int number, String operation) {
         if ("+".equals(operation)) {
             return sum + number;
         }
