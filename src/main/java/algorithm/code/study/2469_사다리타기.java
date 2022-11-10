@@ -17,28 +17,92 @@ class Problem2469 {
      * k와 n, 그리고 도착순서 문자열이 나타난 다음, 이어지는 n개의 줄에는 앞서 설명한 바와 같이 ‘*’와 ‘-’ 문자로 이루어진 길이 k-1인 문자열이 주어진다.
      * 그 중 감추어진 가로 줄은 길이가 k-1인 ‘?’ 문자열로 표시되어 있다.
      */
+    static int k,n;
+    static String ladders[][];
+    static int questionMarkLine;
 
     public static void main(String args[]) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int k = Integer.parseInt(st.nextToken());
+        k = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
 
-        String resultPlayer = st.nextToken();
+        String resultPlayers = st.nextToken();
+        int[] playersToAscii = new int[k];
+        int[] resultPlayersToAscii = new int[k];
 
-        String[][] ladders = new String[n][k];
+        for (int i = 0; i < resultPlayers.length(); i++) {
+            playersToAscii[i] = i;
+            resultPlayersToAscii[i] = resultPlayers.charAt(i) - 65;
+        }
+
+        ladders = new String[n][k-1];
 
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             ladders[i] = st.nextToken().split("");
+            if ("?".equals(ladders[i][0])) questionMarkLine = i;
         }
-        for (String a[] : ladders) {
-            System.out.println(Arrays.toString(a));
+
+        for (int i = 0; i < questionMarkLine; i++) {
+            playersToAscii = movePlayer(playersToAscii, i, 0);
         }
+
+        for (int i = n; i > questionMarkLine + 1; i--) {
+            resultPlayersToAscii = movePlayer(resultPlayersToAscii, i, 1);
+        }
+
+//        System.out.println(Arrays.toString(playersToAscii));
+//        System.out.println(Arrays.toString(resultPlayersToAscii));
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0 ; i < k - 1 ; i++) {
+            if(playersToAscii[i] != resultPlayersToAscii[i]) {
+                sb.append("-");
+                sb.append("*");
+                i++;
+            }
+            else if(playersToAscii[i] != resultPlayersToAscii[i] && playersToAscii[i+1] != resultPlayersToAscii[i+1]) {
+                System.out.println("x".repeat(k-1));
+                System.out.println("@@@");
+                return;
+            }
+            else {
+                sb.append("*");
+            }
+        }
+
+        if(sb.length() > k-1) {
+            sb.delete(k-1, sb.length());
+        }
+
+        System.out.println(sb.toString());
+
+    }
+
+    //isRevers 0 or 1 (down : 0, up : 1)
+    static int[] movePlayer(int[] player, int curentStep, int isRevers) {
+        int[] movedPlayer = new int[k];
+
+        for (int i = 0; i < k - 1; i++) {
+            if ("-".equals(ladders[curentStep-isRevers][i])) {
+                movedPlayer[i+1] = player[i];
+                movedPlayer[i] = player[i+1];
+                i++;
+            }
+            else {
+                movedPlayer[i] = player[i];
+            }
+        }
+
+        if ("*".equals(ladders[curentStep-isRevers][k-2])) movedPlayer[k-1] = player[k-1];
+
+        return movedPlayer;
     }
 }
 
