@@ -1,4 +1,4 @@
-package algorithm.code.programmers;
+package algorithm.code.programmers.syudy;
 
 class Lesson67256 {
     static String solution(int[] numbers, String hand) {

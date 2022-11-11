@@ -1,4 +1,4 @@
-package algorithm.code.programmers;
+package algorithm.code.programmers.syudy;
 
 /**
  * 0 ≤ alp,cop ≤ 150

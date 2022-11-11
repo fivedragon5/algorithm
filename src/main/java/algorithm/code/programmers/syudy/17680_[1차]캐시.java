@@ -1,4 +1,4 @@
-package algorithm.code.programmers;
+package algorithm.code.programmers.syudy;
 
 import java.util.ArrayList;
 import java.util.List;

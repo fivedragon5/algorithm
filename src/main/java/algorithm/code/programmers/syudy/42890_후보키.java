@@ -1,4 +1,4 @@
-package algorithm.code.programmers;
+package algorithm.code.programmers.syudy;
 
 import java.util.HashMap;
 import java.util.LinkedList;
