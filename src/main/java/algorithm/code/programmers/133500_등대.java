@@ -16,9 +16,9 @@ class Lesson133500 {
 
     static int LIGHT_HOUSE_COUNT;
     static ArrayList<ArrayList<Integer>> course = new ArrayList<>();
+    static int answer;
 
     static int solution(int n, int[][] lighthouse) {
-        int answer = 0;
 
         boolean[] isLightOn = new boolean[n];
         LIGHT_HOUSE_COUNT = n;
@@ -42,7 +42,6 @@ class Lesson133500 {
 
         for (int i = 1 ; i <= n - leafNodeCount ; i ++) {
             if (turnOnLignt(i, 0, isLightOn)) {
-                answer = i;
                 break;
             }
         }
@@ -55,7 +54,7 @@ class Lesson133500 {
         if (turnOnlightCount <= count) {
             System.out.println(Arrays.toString(isLightOn));
             if (isPossible(isLightOn)) {
-                System.out.println("가능");
+                answer = Math.max(answer, count);
                 return true;
             }
         }
@@ -85,7 +84,6 @@ class Lesson133500 {
                     }
                 }
                 if(!flag) {
-                    System.out.println("안돼 돌아가");
                     return false;
                 }
             }
@@ -96,10 +94,10 @@ class Lesson133500 {
 
     public static void main(String[] args) {
         System.out.println("===START===");
-        int n = 8;
-        int[][] lighthouse = {{1, 2}, {1, 3}, {1, 4}, {1, 5}, {5, 6}, {5, 7}, {5, 8}};
-        //int n = 10;
-        //int[][] lighthouse = {{4, 1}, {5, 1}, {5, 6}, {7, 6}, {1, 2}, {1, 3}, {6, 8}, {2, 9}, {9, 10}};
+//        int n = 8;
+//        int[][] lighthouse = {{1, 2}, {1, 3}, {1, 4}, {1, 5}, {5, 6}, {5, 7}, {5, 8}};
+        int n = 10;
+        int[][] lighthouse = {{4, 1}, {5, 1}, {5, 6}, {7, 6}, {1, 2}, {1, 3}, {6, 8}, {2, 9}, {9, 10}};
         System.out.println(solution(n, lighthouse));
         System.out.println("===END===");
     }
