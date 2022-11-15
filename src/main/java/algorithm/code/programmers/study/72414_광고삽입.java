@@ -1,4 +1,4 @@
-package algorithm.code.programmers.syudy;
+package algorithm.code.programmers.study;
 
 class lesson72414 {
     static String solution(String play_time, String adv_time, String[] logs) {

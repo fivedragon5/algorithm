@@ -1,4 +1,4 @@
-package algorithm.code.programmers.syudy;
+package algorithm.code.programmers.study;
 
 import java.util.Stack;
 

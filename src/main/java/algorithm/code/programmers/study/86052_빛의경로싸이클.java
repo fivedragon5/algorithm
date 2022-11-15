@@ -1,4 +1,4 @@
-package algorithm.code.programmers.syudy;
+package algorithm.code.programmers.study;
 
 class Lesson86052 {
     static int[] solution(String[] grid) {

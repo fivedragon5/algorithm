@@ -1,6 +1,4 @@
-package algorithm.code.programmers.syudy;
-
-import java.util.Arrays;
+package algorithm.code.programmers.study;
 
 /**
  * 격자의 크기 m, n은 1 이상 100 이하인 자연수입니다.

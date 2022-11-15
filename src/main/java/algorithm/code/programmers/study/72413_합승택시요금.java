@@ -1,4 +1,4 @@
-package algorithm.code.programmers.syudy;
+package algorithm.code.programmers.study;
 
 /*
     최단거리 알고리즘

@@ -1,4 +1,4 @@
-package algorithm.code.programmers;
+package algorithm.code.study;
 
 /**
  * 풀이)

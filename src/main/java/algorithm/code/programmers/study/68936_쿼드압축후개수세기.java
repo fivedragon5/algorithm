@@ -1,4 +1,4 @@
-package algorithm.code.programmers.syudy;
+package algorithm.code.programmers.study;
 
 class Lesson68936 {
     static int[] solution(int[][] arr) {

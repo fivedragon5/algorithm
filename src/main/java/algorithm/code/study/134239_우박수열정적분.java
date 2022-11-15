@@ -1,4 +1,4 @@
-package algorithm.code.programmers;
+package algorithm.code.study;
 
 import java.util.LinkedList;
 import java.util.List;

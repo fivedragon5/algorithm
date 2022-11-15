@@ -1,6 +1,4 @@
-package algorithm.code.programmers.syudy;
-
-import java.util.Arrays;
+package algorithm.code.programmers.study;
 
 class Lesson77885 {
 
