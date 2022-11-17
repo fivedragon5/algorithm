@@ -8,11 +8,24 @@ import java.util.Set;
 
 class Lesson133500_2 {
     /**
-     * 리프노드는 불을 안켜도 됌
-     * { 그래프 순회 - 리프노드 찾기 리프노드의 부모노드불 켜주고 (리프노드,부모노드) 삭제 } 반복
+     * 1. 풀이1)
+     *  - 등대에 불을 키는 수를 1 ~ n/2까지 증가시킴
+     *  - 각각의 등대에 불을 켜보고 조건을 만족 하는순간 return
+     *
+     * 2.풀이2)
+     *  - 리프노드와 연결된 리프노드의 부모노드중 부모노드 등대에 불을 키는게 리프노드 등대에 불을 키는것보다 무조건 효율이 좋음
+     *  - 풀이1)을 적용하기전 킬수있는 등대에 미리 불을 켜두고 범위를 좁혀 풀이1 시작
+     *
+     * 3. 풀이3)
+     * - 1.리프노드 탐색
+     * - 2.리프노드의 부모노드를 Set에 담아둠 (담을때마다 불을 켜줌) 
+     * - 3.리프노드의 부모노드 Set을 순회하면서 set에있는 부모노드와 연관된 리프노드들을 그래프에서 지움
+     * - 더이상 리프노드가 없을때까지 반복
+     *
+     * - { 그래프 순회 - 리프노드 찾기 리프노드의 부모노드불 켜주고 (리프노드,부모노드) 삭제 } 반복
      *
      * 제한 사항)
-     * 등대 : n, 뱃길 : n-1
+     * 등대 : n, 뱃길 : n-1 : 순회 불가능
      * 어느 등대에서 출발해도 다른 모든 등대까지 이동 가능
      * 2 <= n <= 100,000
      *
@@ -42,12 +55,25 @@ class Lesson133500_2 {
 
         while (true) {
             int count = 0;
+
+            //리프노드의 카운트를 셈
             count = leafNodeCheck(course);
 
             answer += count;
+
+            //불을 킨 부모노드가 없을경우 종료
             if (count == 0) {
                 break;
             }
+            /** 출력용 Start **/
+                int index = 0;
+                System.out.println("====");
+                for (LinkedList a : course) {
+                    System.out.println(index++ + ":" + a.toString());
+                }
+            /** 출력용 End **/
+
+            //그래프를 다시 그려줌
             reDrawCourse();
         }
 
@@ -60,6 +86,8 @@ class Lesson133500_2 {
         for (int i = 0; i < LIGHT_HOUSE_COUNT; i++) {
             if (nodeList.get(i).size() == 1 && !isLightOn[i]) {
                 int parentNode = nodeList.get(i).get(0);
+
+                //이때 이미 불이 켜저있는 부모노드일경우 카운트X
                 if (!isLightOn[parentNode]) {
                     isLightOn[parentNode] = true;
                     turnOnLightHouse.add(parentNode);
@@ -71,7 +99,8 @@ class Lesson133500_2 {
     }
 
     static void reDrawCourse() {
-
+        
+        //불을 킨 부모노드와 관련된 자식노드들을 순회하며 지워줌
         for (int node : turnOnLightHouse) {
             for (int childeNode : course.get(node)) {
                 int index = course.get(childeNode).indexOf(node);
@@ -79,6 +108,7 @@ class Lesson133500_2 {
             }
             course.get(node).clear();
         }
+        //부모노드 Set을 비워줌
         turnOnLightHouse.clear();
     }
 
