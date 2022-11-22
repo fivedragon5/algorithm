@@ -24,7 +24,7 @@ class Problem10971 {
 
     static int N; //도시의 수
     static int[][] cities; //각 도시를 이동하는대에 필요한 비용
-    static int[][] dp; //[a][b] a:도시, b:방문 확인 : 방문하지 않은 도시
+    static int[][] dp; //[a][b] a:도시, b:방문 확인 : 앞으로 남은 경로들의 대한 최소값
     static final int INF = 200000000;
 
     public static void main(String args[]) throws IOException {
