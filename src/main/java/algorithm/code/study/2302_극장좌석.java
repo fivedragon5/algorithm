@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /**
+ *
  * 조건)
  * 1 <= N <= 40
  * 0 <= M <= N
@@ -32,12 +33,12 @@ class Problem2302 {
 
         M = Integer.parseInt(st.nextToken());
 
-        int[] fixedSeats = new int[M];
-        int[] dp = new int[N+1];
+        int[] vipSeats = new int[M];
+        int[] dp = new int[41];
 
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
-            fixedSeats[i] = Integer.parseInt(st.nextToken());
+            vipSeats[i] = Integer.parseInt(st.nextToken());
         }
         dp[0] = 1;
         dp[1] = 1;
@@ -46,21 +47,27 @@ class Problem2302 {
         for (int i = 3; i <= N; i++) {
             dp[i] = dp[i-2] + dp[i-1];
         }
+
         int answer = 1;
+
         if (M == 0) {
             System.out.println(dp[N]);
         }
-        else {
-            answer = dp[(fixedSeats[0] - 1)];
 
-            int before = fixedSeats[0];
-            for (int i = 1; i < M; i++) {
-                int index = fixedSeats[i];
-                answer *= dp[index - before - 1];
-                before = index;
+        else {
+
+            int before = 0;
+
+            for (int i = 0; i < M; i++) {
+                int nextVipSeat = vipSeats[i];
+                answer *= dp[nextVipSeat - before - 1];
+                before = nextVipSeat;
             }
-            answer *= dp[N - before];
+
+            answer *= dp[N-before];
+
             System.out.println(answer);
+
         }
     }
 }
@@ -88,5 +95,3 @@ class Problem2302 {
 9
 0
  */
-
-
