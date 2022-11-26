@@ -35,10 +35,14 @@ class Problem1689 {
 
         Arrays.sort(lines, (line1, line2) -> {
             if(line1[0] == line2[0]) {
-                return line2[1] - line1[1];
+                return line1[1] - line2[1];
             }
             return line1[0] - line2[0];
         });
+
+        for (int[] a : lines) {
+            System.out.println(Arrays.toString(a));
+        }
 
         int maxStart = lines[0][0];
         int minEnd = lines[0][1];
