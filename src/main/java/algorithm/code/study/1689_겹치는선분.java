@@ -20,45 +20,37 @@ class Problem1689 {
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int N = Integer.parseInt(st.nextToken());
-        int[][] lines = new int[N][2];
+        int[][] lines = new int[2*N][2];
 
-        int answer = 1;
-        int stack = 1;
-        int start = 0;
-        int end = 0;
+        int answer = 0;
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             lines[i][0] = Integer.parseInt(st.nextToken());
-            lines[i][1] = Integer.parseInt(st.nextToken());
+            lines[i][1] = 1;
+            lines[i+N][0] = Integer.parseInt(st.nextToken());
         }
 
         Arrays.sort(lines, (line1, line2) -> {
-            if(line1[0] == line2[0]) {
+            if (line1[0] == line2[0]) {
                 return line1[1] - line2[1];
             }
-            return line1[0] - line2[0];
+            return line1[0] -line2[0];
         });
 
+        int count = 0;
+
         for (int[] a : lines) {
-            System.out.println(Arrays.toString(a));
-        }
-
-        int maxStart = lines[0][0];
-        int minEnd = lines[0][1];
-
-        for (int i = 1; i < N; i++) {
-            start = lines[i][0];
-            end = lines[i][1];
-
-            if (minEnd > start) {
-                stack++;
-                answer = Math.max(answer, stack);
+            if (a[1] == 1) {
+                count++;
+                answer = Math.max(answer, count);
             }
             else {
-                stack--;
+                count--;
             }
         }
+
+        System.out.println(answer);
     }
 }
 /*
