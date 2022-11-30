@@ -1,4 +1,4 @@
-package algorithm.code.study;
+package algorithm.code.baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /**
- * TODO: 20221128 코테 후 풀기
+ * TODO : 다시풀기
  *
  * 1 <= N 100,000
  * 0 <= number <= 9

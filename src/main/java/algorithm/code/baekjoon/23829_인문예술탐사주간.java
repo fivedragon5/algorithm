@@ -1,4 +1,4 @@
-package algorithm.code.study;
+package algorithm.code.baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
+ * TODO : 다시풀기
+ *
  * 1 <= N,Q <= 100,000
  * 1 <= 나무 위치, 태영 위치, <= 10,000,000
  */
