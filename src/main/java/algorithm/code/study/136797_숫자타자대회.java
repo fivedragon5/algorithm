@@ -1,4 +1,4 @@
-package algorithm.code.programmers.study;
+package algorithm.code.study;
 
 import java.util.HashMap;
 
