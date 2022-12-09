@@ -3,10 +3,13 @@ package algorithm.code.study;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 /**
+ * TODO : 20221210 다시풀기 x,y 좌표 queue 확인
+ * 
  * 문제)
  * 상이 왕에게 접근할 수 있는 최소 접근 횟수를 구하시오.
  *
@@ -38,15 +41,15 @@ class Problem16509 {
         map[sangPosition[0]][sangPosition[1]] = true;
 
 
-        Stack<int[]> stack = new Stack<>();
-        stack.add(new int[]{sangPosition[0], sangPosition[1], 0});
+        Queue<int[]> queue = new ArrayDeque<>();
+        queue.add(new int[]{sangPosition[0], sangPosition[1], 0});
 
         int moveX = 0;
         int moveY = 0;
 
-        while(stack.size() > 0) {
-            if (!stack.isEmpty()) {
-                int[] sang = stack.pop();
+        while(queue.size() > 0) {
+            if (!queue.isEmpty()) {
+                int[] sang = queue.poll();
 
                 int x = sang[1];
                 int y = sang[0];
@@ -67,7 +70,7 @@ class Problem16509 {
                         continue;
                     }
 
-                    stack.add(new int[]{moveY, moveX, step + 1});
+                    queue.add(new int[]{moveY, moveX, step + 1});
 
                     map[moveY][moveX] = true;
                 }
