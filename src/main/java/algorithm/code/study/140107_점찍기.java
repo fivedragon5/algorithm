@@ -1,37 +1,50 @@
 package algorithm.code.study;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
- * TODO : 22 12.16 이중 for문 시간초과 다시풀어보기
- * 
+ * TODO : 22 12.16 이중 for문 시간초과 다시풀어보기, 반으로 줄여도 시간초과 TestCase 11, 13, 14 조건에 만족하는 수 부분을 줄여야 할꺼같다.
+ *
  * 제한)
  * 1 ≤ k ≤ 1,000,000
  * 1 ≤ d ≤ 1,000,000
  */
 class Lesson140107 {
-    static long solution(int k, int d) {
-
+    static long solution2(int k, int d) {
         ArrayList<Integer> numberList = new ArrayList<>();
-        HashMap<Integer, Integer> map = new HashMap<>();
-
         for (int i = 0; i <= d; i += k) {
             numberList.add(i);
         }
-
-        System.out.println(k + "," + d);
-
         long maxLength = (long) d * d;
 
         long count = 0;
 
-        for (int number1 : numberList) {
-            long pow1 = (long) number1 * number1;
-            for (int number2 : numberList) {
-                long pow2 = (long) number2 * number2;
+        for (int i = 0; i < numberList.size(); i++) {
+            long pow1 = (long) Math.pow(numberList.get(i),2);
+            long sum = pow1;
+            while (maxLength > sum) {
+
+            }
+        }
+        return count;
+    }
+    static long solution(int k, int d) {
+        ArrayList<Integer> numberList = new ArrayList<>();
+
+        for (int i = 0; i <= d; i += k) {
+            numberList.add(i);
+        }
+        long maxLength = (long) d * d;
+
+        long count = 0;
+
+        for (int i = 0; i < numberList.size(); i++) {
+            long pow1 = (long) Math.pow(numberList.get(i),2);
+            for (int j = i; j < numberList.size(); j++) {
+                long pow2 = (long) Math.pow(numberList.get(j),2);
                 if (maxLength >= pow1 + pow2) {
-                    count++;
+                    if (pow1 == pow2) count++;
+                    else count += 2;
                 }
                 else {
                     break;
@@ -43,8 +56,8 @@ class Lesson140107 {
     }
 
     public static void main(String[] args) {
-        int k = 1;
-        int d = 5;
+        int k = 2;
+        int d = 4;
         System.out.println("===START===");
         System.out.println(solution(k, d));
         System.out.println("===END===");
