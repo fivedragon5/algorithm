@@ -42,12 +42,17 @@ class Lesson136797 {
         numberKeyBoard.put('#', new int[]{3,2});
 
         Queue<int[]> queue = new LinkedList<>();
+
+        HashMap<String, Integer> map = new HashMap<>();
+
         //{0:왼엄지row, 1:왼엄지col, 2:오른엄지row, 3:오른엄지col, 4:step, 5:가중치}
         queue.add(new int[]{1, 0, 1, 2, 0 ,0});
         int[] temp;
         int power = 0;
 
         for (int i = 0; i < numbers.length(); i++) {
+
+            map.clear();
 
             char n = numbers.charAt(i);
 
@@ -61,8 +66,11 @@ class Lesson136797 {
                 }
 
                 if (isThumbMovePossible(n, temp)) {
+                    //1.가중치가 낮은것으로 교체하는 로직을 만들어보자...
+                    //2.사실 왼손, 오른손은 중요하지 않다.
                     power = calcMovePower(temp[0], temp[1], n);
                     queue.add(new int[]{numberKeyBoard.get(n)[0], numberKeyBoard.get(n)[1], temp[2], temp[3], i+1, temp[5] + power});
+
                     power = calcMovePower(temp[2], temp[3], n);
                     queue.add(new int[]{temp[0], temp[1], numberKeyBoard.get(n)[0], numberKeyBoard.get(n)[1], i+1, temp[5] + power});
                 }
