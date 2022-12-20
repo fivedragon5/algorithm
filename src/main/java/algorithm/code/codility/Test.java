@@ -1,4 +1,4 @@
-package algorithm.codility;
+package algorithm.code.codility;
 
 class Test {
     static void solution(long N) {

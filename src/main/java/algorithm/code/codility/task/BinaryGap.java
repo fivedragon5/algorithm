@@ -1,4 +1,4 @@
-package algorithm.codility.task;
+package algorithm.code.codility.task;
 
 import java.io.IOException;
 
