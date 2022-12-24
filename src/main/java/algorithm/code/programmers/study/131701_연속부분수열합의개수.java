@@ -1,4 +1,4 @@
-package algorithm.code.programmers;
+package algorithm.code.programmers.study;
 
 import java.util.HashSet;
 import java.util.Set;
