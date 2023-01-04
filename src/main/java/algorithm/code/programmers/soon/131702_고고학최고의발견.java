@@ -1,8 +1,8 @@
-package algorithm.code.study;
+package algorithm.code.programmers.soon;
 
 /**
  *
- *
+ * TODO : 어렵다 나중에 다시 풀어보자.
  * 제한)
  * clockHands[n][m]
  * 2 <= n, m <= 8
