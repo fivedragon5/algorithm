@@ -1,4 +1,4 @@
-package algorithm.code.baekjoon;
+package algorithm.code.baekjoon.soon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
