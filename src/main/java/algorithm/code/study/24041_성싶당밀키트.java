@@ -3,7 +3,9 @@ package algorithm.code.study;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 /**
@@ -21,6 +23,7 @@ import java.util.StringTokenizer;
  */
 class Problem24041 {
     public static void main(String args[]) throws IOException {
+        int answer = 0;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
@@ -29,8 +32,11 @@ class Problem24041 {
         int K = Integer.parseInt(st.nextToken());
 
         //세균 수 : S(i) * max(1, x - L(i))
-        int[][] items = new int[N][3];
-//        ArrayList<int[]> items = new ArrayList<>();
+        int[][] itemsArray = new int[N][3];
+
+        ArrayList<int[]> ingredientItems = new ArrayList<>();
+        ArrayList<int[]> items = new ArrayList<>();
+//        ArrayList<int[]> itemsArray = new ArrayList<>();
         // 부패속도, 유통기한, 중요도
         int S = 0;
         int L = 0;
@@ -42,52 +48,74 @@ class Problem24041 {
             L = Integer.parseInt(st.nextToken());
             O = Integer.parseInt(st.nextToken());
 
-            items[i][0] = S;
-            items[i][1] = L;
-            items[i][2] = O;
+            if (O == 0) {
+                ingredientItems.add(new int[]{S, L});
+            }
+            else {
+                items.add(new int[]{S, L});
+            }
         }
-
-        for (int[] item : items) {
+        System.out.println("필수 재료 리스트");
+        for (int[] item : ingredientItems) {
             System.out.println(Arrays.toString(item));
         }
 
-        Arrays.sort(items, (i1, i2) -> {
-            if (i1[1] == i2[1]) {
-                return i2[0] - i1[0];
-            }
-            return i1[1] - i2[1];
-        });
-
-        System.out.println("정렬");
-
+        System.out.println("그냥 재료 리스트");
         for (int[] item : items) {
             System.out.println(Arrays.toString(item));
         }
         
-        // 시작일
-        int day = items[0][1] + 1;
-        // 부패가 시작된 배열의 인덱스
-        int pointer = 0;
-        // 현재까지의 세균 수
-        int totalGerm = 0;
-        // 늘어나는 세균 수
-        int increaseGerm = 0;
+        //x일을 정해놓고 이분탐색 진행 이때 그냥 재료 리스트를 계산하여 우선순위큐에 넣어두고 K만큼 빼서 계산해보자.
+        int left = 0;
+        int right = Integer.MAX_VALUE;
+        int mid = 0;
+        long germCount = 0;
+        long germ = 0;
 
-        while (totalGerm <= G) {
-            for (int i = pointer; i < items.length; i++) {
-                if (items[i][1] < day) {
-                    pointer++;
-                    increaseGerm += items[i][0];
-                }
-                else {
-                    break;
-                }
+        PriorityQueue<Integer> germQueue = new PriorityQueue<>((o1, o2) -> o2 - o1);
+
+        while (left < right) {
+            mid = (left + right) / 2;
+            germCount = 0;
+            germQueue.clear();
+            //필수 재료들의 세균 수 계산
+            germCount += calcIngredientItemTotalGermCount(ingredientItems, mid);
+
+            //빼도 되는 재료들의 세균 수 계산
+            for (int[] item : items) {
+                germ = calcGerm(item[0], item[1], mid);
+                germCount += germ;
+                germQueue.add(germ);
             }
-            totalGerm += increaseGerm;
-            System.out.println("day : " + day + "/ totalGerm" + totalGerm);
-            day++;
+
+            for (int i = 0; i < K; i++) {
+                germCount -= germQueue.poll();
+            }
+
+            if (G >= germCount) {
+                answer = Math.max(answer, mid);
+                left = mid + 1;
+            }
+            else {
+                right = mid;
+            }
+
         }
-        System.out.println(day-1);
+
+        System.out.println(answer);
+    }
+    
+    //필수 재료들을 모은 list에서 x일 후에 세균 수를 계산
+    static long calcIngredientItemTotalGermCount(ArrayList<int[]> items, int day) {
+        long count = 0;
+        for (int[] item : items) {
+            count += calcGerm(item[0], item[1], day);
+        }
+        return count;
+    }
+
+    static long calcGerm(int s, int l, int x) {
+        return s * Math.max(1, x - l);
     }
 }
 /*
