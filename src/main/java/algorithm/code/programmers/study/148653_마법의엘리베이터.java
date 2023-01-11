@@ -1,4 +1,4 @@
-package algorithm.code.study;
+package algorithm.code.programmers.study;
 
 /**
  * 접근)
