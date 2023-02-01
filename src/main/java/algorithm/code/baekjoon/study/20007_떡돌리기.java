@@ -1,4 +1,4 @@
-package algorithm.code.study;
+package algorithm.code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.*;
  *  2. 최단거리 배열을 오름차순으로 정렬
  *  3. 정렬한 배열을 순회하면서 왕복 거리를 생각하며 계산
  *      - 다른 집을 방문한 후에는 다시 집으로 돌아와야 함 (떡은 한번에 한개씩)
- *      - 왕복거리가 X일을 넘어가는 집이 있을경우 -1을 return 해줌 
+ *      - 왕복거리가 X일을 넘어가는 집이 있을경우 -1을 return 해줌
  *      
  * 제한)
  * 2 ≤ N ≤ 1,000
