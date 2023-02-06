@@ -8,9 +8,10 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
+ * //구현문제
  * //n이 1일때 처리 해주기
  * //나머지는 반전처리
- *
+ * 
  * 제한)
  * 1 ≤ R, C ≤ 200
  * 1 ≤ N ≤ 109
@@ -27,10 +28,11 @@ class Problem16919 {
 
         R = Integer.parseInt(st.nextToken());
         C = Integer.parseInt(st.nextToken());
-        N = Integer.parseInt(st.nextToken()) % 4;
+        N = Integer.parseInt(st.nextToken());
 
         StringBuilder firstMap = new StringBuilder();
         ArrayList<int[]> booms = new ArrayList<>();
+        ArrayList<int[]> booms2 = new ArrayList<>();
         Character[][] map = new Character[R][C];
         for (Character[] c : map) {
             Arrays.fill(c, 'O');
@@ -45,22 +47,33 @@ class Problem16919 {
             }
         }
 
+        if (N == 1) {
+            System.out.println(firstMap.delete(firstMap.length() - 1 , firstMap.length()));
+            return;
+        }
+
         for (int[] boom : booms) {
             int x = boom[0];
             int y = boom[1];
 
+            if(map[x][y] == 'O') {
+                booms2.add(new int[]{x, y});
+            }
             map[x][y] = '.';
 
             for (int i = 0; i < 4; i++) {
                 int moveX = x + dx[i];
                 int moveY = y + dy[i];
                 if (moveX >= 0 && moveY >= 0 && moveX < R && moveY < C) {
+                    if(map[moveX][moveY] == 'O') {
+                        booms2.add(new int[]{moveX, moveY});
+                    }
                     map[moveX][moveY] = '.';
                 }
             }
         }
 
-        switch (N) {
+        switch (N % 4) {
             case 0:
             case 2: {
                 for (int i = 0; i < R; i++) {
@@ -69,7 +82,30 @@ class Problem16919 {
                 break;
             }
             case 1: {
-                System.out.println(firstMap.delete(firstMap.length() - 1 , firstMap.length()));
+                for (int[] boom : booms2) {
+                    int x = boom[0];
+                    int y = boom[1];
+
+                    for (int i = 0; i < 4; i++) {
+                        int moveX = x + dx[i];
+                        int moveY = y + dy[i];
+                        if (moveX >= 0 && moveY >= 0 && moveX < R && moveY < C) {
+                            if (map[moveX][moveY] == 'O') map[x][y] = 'X';
+                        }
+                    }
+                }
+                for (Character[] m : map) {
+                    StringBuilder sb = new StringBuilder();
+                    for (char c : m) {
+                        if (c == '.') {
+                            sb.append('O');
+                        }
+                        else {
+                            sb.append(".");
+                        }
+                    }
+                    System.out.println(sb);
+                }
                 break;
             }
             default: {
@@ -94,14 +130,23 @@ class Problem16919 {
 OO.....
 OO.....
 
-OOO.OOO
-OO...OO
-OOO...O
-..OO.OO
-...OOOO
-...OOOO
-
 2 2 5
+O.
+O.
+
+6 7 5
+.......
+...O...
+....O..
+.......
+OO.....
+OO.....
+
+2 2 1
+O.
+O.
+
+2 2 3
 O.
 O.
 
