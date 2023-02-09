@@ -5,7 +5,8 @@
 
 ## ⚙ 환경
    - SPRING BOOT 2.6.7
-   - JAVA 1.8
+   - JAVA 17
+   - Kotlin
    - gradle
 
 ## 📁 폴더 구조
