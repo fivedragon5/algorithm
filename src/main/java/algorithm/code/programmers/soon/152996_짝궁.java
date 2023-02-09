@@ -1,4 +1,4 @@
-package algorithm.code.study;
+package algorithm.code.programmers.soon;
 
 class Lesson152996 {
     static String solution(String parameter) {
