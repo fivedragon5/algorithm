@@ -3,10 +3,9 @@ package algorithm.code.week;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 /**
@@ -27,11 +26,11 @@ import java.util.StringTokenizer;
  */
 class Problem10917 {
 
-    static int[] check;
-    static Map<Integer, HashSet<Integer>> map = new HashMap();
     static int destinationDream;
     static int min = 100001;
-    static boolean[] visited;
+    static ArrayList<Integer>[] list;
+
+    static int[] check;
 
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -40,49 +39,45 @@ class Problem10917 {
         int N = Integer.parseInt(st.nextToken()); // 목표 꿈
         int M = Integer.parseInt(st.nextToken()); // 상황의 수
         destinationDream = N;
-        check = new int[N + 1];
-        visited = new boolean[N + 1];
+        check = new int[N+1];
+        list = new ArrayList[N+1];
 
-        Arrays.fill(check, 100001);
+        for (int i = 0; i < N + 1; i++) {
+            list[i] = new ArrayList<>();
+            check[i] = N+1;
+        }
 
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
-            if (x > N) continue;
-            HashSet set = map.getOrDefault(x, new HashSet());
-            set.add(y);
-            map.put(x, set);
+            if (x > N || y > N) continue;
+            list[x].add(y);
         }
 
-        dfs(1, 0);
+        bfs();
 
         System.out.println(min == 100001 ? -1 : min);
     }
 
-    static void dfs(int currentDream, int count) {
-        if (currentDream == destinationDream) {
-            visited[currentDream] = false;
-            min = Math.min(min, count);
-            return;
-        }
-
-        HashSet<Integer> set = map.getOrDefault(currentDream, new HashSet());
-        if (set.size() == 0) {
-            visited[currentDream] = true;
-            return;
-        }
-        for (int nextDream : set) {
-            visited[currentDream] = true;
-            if (!visited[nextDream] && check[nextDream] >= count + 1) {
-                check[nextDream] = count + 1;
-                visited[nextDream] = true;
-                dfs(nextDream, count + 1);
-                visited[nextDream] = false;
+    static void bfs() {
+        Queue<int[]> queue = new ArrayDeque<>();
+        queue.add(new int[]{1,0});
+        while(!queue.isEmpty()) {
+            int[] temp = queue.poll();
+            int currentDream = temp[0];
+            int count = temp[1];
+            if (currentDream == destinationDream) {
+                min = Math.min(min, count);
             }
-            visited[currentDream] = false;
+            for (int next : list[currentDream]) {
+                if (check[next] > count + 1) {
+                    check[next] = count + 1;
+                    queue.add(new int[]{next, count + 1});
+                }
+            }
+            check[currentDream] = -1;
         }
-
     }
 }
 
@@ -92,5 +87,12 @@ class Problem10917 {
 2 3
 3 4
 2 4
+
+4 5
+1 2
+2 3
+3 4
+2 4
+6 7
  */
 
