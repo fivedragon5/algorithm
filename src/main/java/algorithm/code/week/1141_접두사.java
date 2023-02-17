@@ -32,21 +32,24 @@ class Problem1141 {
         int index = 0;
         list.add(new ArrayList());
         String beforeWord = words[0];
+        list.get(0).add(beforeWord);
 
         for (int i = 1; i < words.length; i++) {
-            if (words[i].startsWith(beforeWord)) {
-                list.get(index).add(words[i]);
+            String currentWord = words[i];
+            if (currentWord.startsWith(beforeWord)) {
+                list.get(index).add(currentWord);
             }
             else {
                 list.add(new ArrayList());
-                list.get(++index).add(words[i]);
-                beforeWord = words[i];
+                list.get(++index).add(currentWord);
+                beforeWord = currentWord;
             }
         }
 
         int count = list.size();
 
         for (ArrayList<String> wordList : list) {
+            System.out.println(wordList.toString());
             int max = 0;
             for (int i = 0; i < wordList.size(); i++) {
                 int c = 0;
@@ -57,7 +60,12 @@ class Problem1141 {
                 }
                 max = Math.max(c, max);
             }
-            count += max;
+            if (max > 1) {
+                count = count + max - 1;
+            }
+            else {
+                count += max;
+            }
         }
 
         System.out.println(count);
@@ -92,14 +100,23 @@ running
 4
 
 7
-zzzs
-abc
-ac
-a
-bca
-keo
-fiasjfids
+ca
+cade
+caed
+cae
+coff
+c
+cb
 
+8
+cirt
+c
+criow
+vimnb
+bbm
+bbmiis
+vim
+aosi
 
  */
 
