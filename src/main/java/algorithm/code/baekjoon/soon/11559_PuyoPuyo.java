@@ -1,4 +1,4 @@
-package algorithm.code.week;
+package algorithm.code.baekjoon.soon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,21 +16,49 @@ import java.util.StringTokenizer;
  */
 
 class Problem11559 {
+
+    static String [][] puyoMap = new String[12][6];
+    static boolean[][] visited = new boolean[12][6];
+    static int maxHeight = 11;
+    static int[] dx = {0, 1, 0, -1};
+    static int[] dy = {1, 0, -1, 0};
+
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        String[][] map = new String[12][6];
-
         for (int i = 0; i < 12; i++) {
             st = new StringTokenizer(br.readLine());
             String a = st.nextToken();
-            map[i] = a.split("");
+            puyoMap[i] = a.split("");
         }
 
-        for (String[] a : map) {
+        for (String[] a : puyoMap) {
             System.out.println(Arrays.toString(a));
         }
+    }
+
+    // 폭파 로직
+    static boolean explode() {
+
+        for (int i = 11; i <= 0; i--) {
+            for (int j = 0; j < 6; j++) {
+                if (!visited[i][j]) {
+
+                }
+            }
+        }
+
+        return false;
+    }
+
+    // 이동 로직
+    static void moveDownPuyo() {
+
+    }
+
+    static void checkPuyo(String color) {
+
     }
 }
 /*
