@@ -1,4 +1,4 @@
-package algorithm.code.week;
+package algorithm.code.programmers.study;
 
 import java.util.LinkedList;
 import java.util.Queue;
