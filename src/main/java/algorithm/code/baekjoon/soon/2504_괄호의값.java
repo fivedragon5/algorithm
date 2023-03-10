@@ -1,4 +1,4 @@
-package algorithm.code.week;
+package algorithm.code.baekjoon.soon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +9,8 @@ class Problem2504 {
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
+        String str = st.nextToken();
     }
 }
 
