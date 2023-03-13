@@ -3,10 +3,15 @@ package algorithm.code.weekly;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
+ * 접근)
+ *  구현문제
+ *  
+ * 풀이)
+ *  제시한 문제대로 구현
+ *  
  * 제한)
  *  6 ≤ R, C ≤ 50
  *  1 ≤ T ≤ 1,000
@@ -17,6 +22,8 @@ class Problem17144 {
     static int R,C,T;
     static int[][] map;
     static int[][] initMap;
+    static int cleanerFirst = -1;
+    static int cleanerSecond = -1;
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -24,8 +31,6 @@ class Problem17144 {
         R = Integer.parseInt(st.nextToken());
         C = Integer.parseInt(st.nextToken());
         T = Integer.parseInt(st.nextToken());
-        int cleanerFirst = -1;
-        int cleanerSecond = -1;
 
         map = new int[R][C];
         initMap = new int[R][C];
@@ -47,18 +52,70 @@ class Problem17144 {
             }
         }
 
-        System.out.println(cleanerFirst + "///" +cleanerSecond);
+        for (int t = 0; t < T; t++) {
+            // 1. init에 확산된 먼지만 쌓기 && 확산되고 남은 먼지는 map에 남겨두기
+            spreadOut();
 
-        spreadOut();
+            // 2. 종료 후 map + initMap 을 더해서 map 으로 옮기기 + initMap은 같이 초기화 진행
+            for (int i = 0; i < R; i++) {
+                for (int j = 0; j < C; j++) {
+                    if (j == 0 && (i == cleanerFirst || i == cleanerSecond)) {
+                    }
+                    else {
+                        map[i][j] += initMap[i][j];
+                        initMap[i][j] = 0;
+                    }
+                }
+            }
 
-        for (int i = 0; i < R; i++) {
-            System.out.println(Arrays.toString(initMap[i]));
+            // 3. 공기청정기를 바람이 끝나는 지점 -> 바람이 시작되는 지점 순으로 먼지를 한칸씩 이동 시키기
+            for (int i = cleanerFirst - 1; i > 0; i--) {
+                map[i][0] = map[i-1][0];
+            }
+
+            for (int i = 0; i < C - 1; i++) {
+                map[0][i] = map[0][i+1];
+            }
+
+            for (int i = 0; i < cleanerFirst; i++) {
+                map[i][C-1] = map[i+1][C-1];
+            }
+
+            for (int i = C - 1; i > 1; i--) {
+                map[cleanerFirst][i] = map[cleanerFirst][i-1];
+            }
+
+            map[cleanerFirst][1] = 0;
+
+
+            // 아래쪽 공기청정기는 시계 방향
+            for (int i = cleanerSecond + 1; i < R - 1; i++) {
+                map[i][0] = map[i+1][0];
+            }
+
+            for (int i = 0; i < C - 1; i++) {
+                map[R-1][i] = map[R-1][i+1];
+            }
+
+            for (int i = R - 1; i > cleanerSecond; i--) {
+                map[i][C-1] = map[i-1][C-1];
+            }
+
+            for (int i = C - 1; i > 1; i--) {
+                map[cleanerSecond][i] = map[cleanerSecond][i-1];
+            }
+
+            map[cleanerSecond][1] = 0;
         }
 
-        // 1. init에 확산된 먼지만 쌓기 && 확산되고 남은 먼지는 map에 남겨두기
-        // 2. 종료 후 map + initMap 을 더해서 map 으로 옮기기 + initMap은 같이 초기화 진행
-        // 3. 공기청정기를 바람이 끝나는 지점 -> 바람이 시작되는 지점 순으로 먼지를 한칸씩 이동 시키기
-        // 위의 1~3 과정을 T초 동안 반복 / 먼지의 총 량을 구하는 것이기 때문에 총량을 계속 갱신 시켜주는게 좋을듯? 어디서할지는 고민해보자.
+        int sum = 2;
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                sum += map[i][j];
+            }
+        }
+
+        System.out.println(sum);
     }
 
     static private void spreadOut() {
@@ -73,6 +130,9 @@ class Problem17144 {
                     int moveX = j + dx[d];
                     int moveY = i + dy[d];
                     if (moveX < 0 || moveY < 0 || moveX >= C || moveY >= R) {
+                        continue;
+                    }
+                    else if(moveX == 0 && (moveY == cleanerFirst || moveY == cleanerSecond)) {
                         continue;
                     }
                     count++;
