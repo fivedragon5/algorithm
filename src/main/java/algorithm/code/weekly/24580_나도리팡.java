@@ -4,11 +4,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 /**
+ * 접근)
+ *  1. 정렬
+ *  2. 투포인터
+ * 풀이)
+ *  1. 나도리 바구니들을 나도리 갯수 오름차순 정렬
+ *  2. 바구니 index[0...N] left: 0, right: N 설정
+ *  3. 반복문 시작
+ *   - 조건) left < right or 나도리를 옮긴 횟수 < K
+ *   - nadoriCount = 바구니[left] + 바구니[right]
+ *     - nadoriCount > K
+ *       - right--
+ *       - left에서 옮긴 나도리 수를 카운트에 추가
+ *     - nadoriCount < K
+ *       - left++
+ *       - left에서 옮긴 나도리 수를 카운트에 추가
+ *     - nadoriCount%L == 0
+ *       - left++
+ *       - right++
+ *       - left에서 옮긴 나도리 수를 카운트에 추가
  * 제한)
  *  2 <= N, K <= 10000
  *  0 <= T <= 10^9
@@ -36,14 +53,18 @@ class Problem24580 {
         int right = N-1;
         int temp = 0;
 
-        while (left < right && count <= T) {
+        while (left <= right && count <= T) {
+            if (left == right) {
+                if (nadoris[right]%K != 0) temp = 1;
+                break;
+            }
             int nadoriCount = nadoris[left] + nadoris[right];
             if (nadoriCount > K) {
                 temp = K - nadoris[right--];
                 count += temp;
-                nadoris[left] -= K - temp;
+                nadoris[left] -= temp;
             }
-            else if(nadoriCount == K) {
+            else if(nadoriCount%K == 0) {
                 count += nadoris[left];
                 left++;
                 right--;
@@ -61,8 +82,6 @@ class Problem24580 {
         else {
             System.out.println("YES");
         }
-
-
     }
 }
 /*
@@ -71,5 +90,8 @@ class Problem24580 {
 
 3 5 2
 1 2 2
+
+2 2 0
+0 0
  */
 
