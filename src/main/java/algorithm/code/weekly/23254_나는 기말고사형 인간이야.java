@@ -3,10 +3,7 @@ package algorithm.code.weekly;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 /**
@@ -22,10 +19,10 @@ class Problem23254 {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        int hours = N = 24;
+        int hours = N * 24;
 
         int[][] score = new int[2][M];
-        List<Subject> subjectList = new ArrayList<>();
+        PriorityQueue<Subject> pq = new PriorityQueue<>((o1, o2) -> o2.up - o1.up);
 
         for (int i = 0; i < 2; i++) {
             st = new StringTokenizer(br.readLine());
@@ -35,21 +32,20 @@ class Problem23254 {
         }
 
         for (int i = 0; i < M; i++) {
-            subjectList.add(new Subject(score[0][i], score[1][i]));
+            pq.add(new Subject(score[0][i], score[1][i]));
         }
 
-        Collections.sort(
-            subjectList,
-            (o1, o2) -> {
-                if (o2.up == o1.up) {
-                    return o1.score - o2.score;
-                }
-                return o2.up - o1.up;
+        while (hours < 0) {
+            Subject subject = pq.poll();
+            int maxTime = (100 - subject.score) / subject.up;
+            if (maxTime <= hours) {
+                hours -= maxTime;
             }
-        );
-
-        for (Subject s : subjectList) {
-            System.out.println(s.toString());
+            else {
+                maxTime = hours;
+            }
+            int changeUp = (100 - subject.score) % subject.up;
+            pq.add(new Subject(subject.score + (subject.up * maxTime), changeUp));
         }
     }
 
@@ -64,7 +60,7 @@ class Problem23254 {
 
         @Override
         public String toString() {
-            return this.score + ", " + this.up;
+            return this.score + "," + this.up;
         }
     }
 }
