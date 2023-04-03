@@ -3,6 +3,7 @@ package algorithm.code.weekly;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
@@ -24,25 +25,38 @@ class Problem1905 {
         int Lx = Integer.parseInt(st.nextToken()); // 가로
         int Ly = Integer.parseInt(st.nextToken()); // 세로
         int N = Integer.parseInt(st.nextToken()); // 상자갯수
-        // lx, ly, lz, px, py
-        // 가로, 세로, 높이,
 
-        int[][] array = new int[1000][1000];
+        int[][] layer = new int[Ly][Lx];
 
         int max = 0;
+        int answer = 0;
 
         for (int i = 0; i < N; i++) {
-            int x = Integer.parseInt(st.nextToken()) - 1;
-            int y = Integer.parseInt(st.nextToken()) - 1;
-            int z = Integer.parseInt(st.nextToken()) - 1;
-            int dx = Integer.parseInt(st.nextToken()) - 1;
-            int dy = Integer.parseInt(st.nextToken()) - 1;
+            st = new StringTokenizer(br.readLine());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+            int z = Integer.parseInt(st.nextToken());
+            int dx = Integer.parseInt(st.nextToken());
+            int dy = Integer.parseInt(st.nextToken());
 
-            for (int j = dx; j < dx + x; j++) {
+            max = 0;
 
+            for(int k = dy; k < dy + y; k++) {
+                for (int j = dx; j < dx + x; j++) {
+                    max = Math.max(max, layer[k][j] + z);
+                }
             }
-
+            for(int k = dy; k < dy + y; k++) {
+                for (int j = dx; j < dx + x; j++) {
+                    layer[k][j] += max;
+                }
+            }
+            answer = Math.max(answer, max + z);
         }
+        for (int[] a : layer) {
+            System.out.println(Arrays.toString(a));
+        }
+        System.out.println(answer);
     }
 }
 /*
