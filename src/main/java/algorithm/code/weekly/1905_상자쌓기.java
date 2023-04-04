@@ -3,9 +3,7 @@ package algorithm.code.weekly;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 /**
@@ -28,7 +26,6 @@ class Problem1905 {
         int Ly = Integer.parseInt(st.nextToken());
         int N = Integer.parseInt(st.nextToken());
 
-        int[][] layer = new int[Ly + 1][Lx + 1];
         int[][] boxes = new int[N][5];
 
         for (int i = 0; i < N; i++) {
@@ -36,39 +33,40 @@ class Problem1905 {
             boxes[i][0] = Integer.parseInt(st.nextToken());
             boxes[i][1] = Integer.parseInt(st.nextToken());
             boxes[i][2] = Integer.parseInt(st.nextToken());
-            boxes[i][3] = Integer.parseInt(st.nextToken()) + 1;
-            boxes[i][4] = Integer.parseInt(st.nextToken()) + 1;
+            boxes[i][3] = Integer.parseInt(st.nextToken());
+            boxes[i][4] = Integer.parseInt(st.nextToken());
         }
 
-        PriorityQueue<Box> pq = new PriorityQueue<>((o1, o2) -> o2.currentHeight - o1.currentHeight);
-        pq.add(new Box(boxes[0][0], boxes[0][1], boxes[0][3], boxes[0][4], boxes[0][2]));
+        ArrayList<Box> boxList = new ArrayList<>();
+        boxList.add(new Box(boxes[0][0], boxes[0][1], boxes[0][3], boxes[0][4], boxes[0][2]));
 
-        for (int i = 1; i < N; i++) {
+        for (int i = 1; i < 1; i++) {
             Box newBox = new Box(boxes[i][0], boxes[i][1], boxes[i][3], boxes[i][4], boxes[i][2]);
-            List<Box> list = new LinkedList();
-            while(!pq.isEmpty()) {
-                Box box = pq.poll();
+            boolean isAdd = false;
+            for (int j = 0; j < boxList.size(); j++) {
+                Box box = boxList.get(j);
                 if (check(box, newBox)) {
                     newBox.currentHeight += box.currentHeight;
-                    pq.add(newBox);
-                    pq.add(box);
+                    isAdd = true;
+                    for (int k = 0; k <= j; k++) {
+                        if (newBox.currentHeight > boxList.get(k).currentHeight) {
+                            boxList.add(k, newBox);
+                            break;
+                        }
+                    }
                     break;
                 }
-                else {
-                    list.add(box);
-                }
             }
-            if (pq.size() == 0) pq.add(newBox);
-            for (Box box : list) {
-                pq.add(box);
+            if (!isAdd) {
+                boxList.add(newBox);
             }
         }
-        System.out.println(pq.poll().currentHeight);
+        System.out.println(boxList.get(0).currentHeight);
     }
 
     static boolean check(Box one, Box two) {
         boolean flag = false;
-        for (int y = two.dy; y < two.dy + two.y; y++) {
+        for (int y = two.dy + 1; y <= two.dy + two.y - 1; y++) {
             if (y >= one.dy && y <= one.dy + y) {
                 flag = true;
                 break;
@@ -77,7 +75,7 @@ class Problem1905 {
 
         if(!flag) return false;
 
-        for (int x = two.dx; x < two.dx + two.x; x++) {
+        for (int x = two.dx + 1; x <= two.dx + two.x - 1; x++) {
             if (x >= one.dx && x <= one.dx + x) {
                 return true;
             }
