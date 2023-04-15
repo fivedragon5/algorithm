@@ -65,23 +65,32 @@ class Problem1905 {
     }
 
     static boolean check(Box one, Box two) {
-        boolean flag = false;
-        for (int y = two.dy + 1; y <= two.dy + two.y - 1; y++) {
-            if (y >= one.dy && y <= one.dy + y) {
-                flag = true;
-                break;
-            }
-        }
 
-        if(!flag) return false;
-
-        for (int x = two.dx + 1; x <= two.dx + two.x - 1; x++) {
-            if (x >= one.dx && x <= one.dx + x) {
-                return true;
-            }
+        if (two.dx < one.x + one.dx
+                && two.dy < one.dy + one.y
+                && one.dx < two.dx + two.x
+                && one.dy < two.dy + two.y) {
+            return true;
         }
 
         return false;
+
+        //px2 < px1+lx1 and py2 < py1+ly1 and px1 < px2+lx2 and py1 < py2+ly2
+
+//        for (int y = two.dy + 1; y <= two.dy + two.y - 1; y++) {
+//            if (y >= one.dy && y <= one.dy + y) {
+//                flag = true;
+//                break;
+//            }
+//        }
+//
+//        if(!flag) return false;
+//
+//        for (int x = two.dx + 1; x <= two.dx + two.x - 1; x++) {
+//            if (x >= one.dx && x <= one.dx + x) {
+//                return true;
+//            }
+//        }
     }
 
     static class Box {

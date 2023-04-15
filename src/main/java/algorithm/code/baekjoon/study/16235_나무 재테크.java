@@ -1,4 +1,4 @@
-package algorithm.code.weekly;
+package algorithm.code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +30,6 @@ class Problem16235 {
     static List<Tree> trees = new LinkedList<>();
     static int[][] add;
     static int[][] map;
-
     static int[] dx = {-1, 0, 1, -1, 1, -1, 0, 1};
     static int[] dy = {-1, -1, -1, 0, 0, 1, 1, 1};
 
