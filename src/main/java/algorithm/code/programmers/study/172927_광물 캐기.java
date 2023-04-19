@@ -1,4 +1,4 @@
-package algorithm.code.weekly;
+package algorithm.code.programmers.study;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

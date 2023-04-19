@@ -1,6 +1,6 @@
 package algorithm.code.weekly;
 
-class Lesson161988 {
+class Lesson181187 {
     static String solution(String parameter) {
         String answer = "";
         return answer;
