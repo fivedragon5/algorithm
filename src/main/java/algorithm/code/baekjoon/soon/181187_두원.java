@@ -1,6 +1,6 @@
-package algorithm.code.weekly;
+package algorithm.code.baekjoon.soon;
 
-class Lesson181188 {
+class Lesson181187 {
     static String solution(String parameter) {
         String answer = "";
         return answer;
