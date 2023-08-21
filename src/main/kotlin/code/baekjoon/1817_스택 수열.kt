@@ -6,8 +6,9 @@ fun main(args: Array<String>) = with(Scanner(System.`in`)) {
     val count = nextInt()
     var index = 1
     val answer = StringBuilder()
-    var startNumber = 0;
+    var startNumber = 0
     val stack = ArrayList<Int>()
+    // 4 3 6
     while (index <= count) {
         val currentNumber = nextInt()
         if (startNumber < currentNumber) {
@@ -26,5 +27,6 @@ fun main(args: Array<String>) = with(Scanner(System.`in`)) {
         }
         index++
     }
+
     println(answer.toString())
 }
