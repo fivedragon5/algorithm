@@ -1,3 +1,5 @@
+package code.baekjoon.resolve
+
 import java.lang.StringBuilder
 import java.util.ArrayList
 import java.util.Scanner
@@ -8,7 +10,6 @@ fun main(args: Array<String>) = with(Scanner(System.`in`)) {
     val answer = StringBuilder()
     var startNumber = 0
     val stack = ArrayList<Int>()
-    // 4 3 6
     while (index <= count) {
         val currentNumber = nextInt()
         if (startNumber < currentNumber) {
