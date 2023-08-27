@@ -1,26 +1,43 @@
 package code.baekjoon
 
-import java.util.ArrayList
 import java.util.Scanner
 
 fun main(args: Array<String>) = with(Scanner(System.`in`)) {
     val count = nextInt()
     val budgets = ArrayList<Int>()
-    var budgetSum = 0
+    var maxBudget = 0;
     for (i in 1 .. count) {
         val budget = nextInt()
         budgets.add(budget)
-        budgetSum += budget
+        maxBudget = Math.max(budget, maxBudget)
     }
     val totalBudget = nextInt()
-    val sortBudgets = budgets.sorted()
-    var answer = sortBudgets.last()
 
     var left = 0
-    var right = count - 1
+    var right = maxBudget
 
-    // TODO : 이분탐색으로 풀어보기
-    println(answer)
+    while (left <= right) {
+        val mid = (left + right) / 2
+        val sumBudget = sumBudgets(budgets, mid)
+        if (sumBudget > totalBudget) {
+            right = mid - 1
+        } else {
+            left = mid + 1
+        }
+    }
+    println(right)
+}
+
+private fun sumBudgets(budgets: List<Int>, maxBudget: Int): Int {
+    var sum = 0
+    for (budget in budgets) {
+        sum += if (budget > maxBudget) {
+            maxBudget
+        } else {
+            budget
+        }
+    }
+    return sum
 }
 /*
 4
@@ -34,4 +51,8 @@ fun main(args: Array<String>) = with(Scanner(System.`in`)) {
 450
 
 100
+
+5
+100 100 100 100 100
+50
  */

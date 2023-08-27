@@ -1,6 +1,6 @@
-import java.util.ArrayList
-import java.util.HashMap
 import java.util.StringTokenizer
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
     var st = StringTokenizer(readLine())
