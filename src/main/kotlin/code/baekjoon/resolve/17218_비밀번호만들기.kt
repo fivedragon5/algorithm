@@ -1,4 +1,5 @@
-package code.baekjoon.resolve/*
+package code.baekjoon.resolve
+/*
 LCS (Longest Common Subsequence) 문제
 dp[i][j] = 첫번째 문자열의 0~i, 두번째 문자열의 0~j까지의 최장 공통 부분 수열의 길이
 1. dp[i][j] = if (firstWord[i] == secondWord[j]) dp[i-1][j-1] + 1
