@@ -1,6 +1,6 @@
 /**
  * https://www.acmicpc.net/problem/2141
- * 코딩테스트 연습 > 연습문제 > 시소짝궁
+ * 알고리즘 분류 : 정렬, 누적합
  */
 
 import java.util.StringTokenizer
