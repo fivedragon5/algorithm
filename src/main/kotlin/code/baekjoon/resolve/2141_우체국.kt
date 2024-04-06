@@ -1,6 +1,7 @@
 /**
  * https://www.acmicpc.net/problem/2141
  * 알고리즘 분류 : 정렬, 누적합
+ * f(x) = ||
  */
 
 import java.util.StringTokenizer
@@ -29,11 +30,16 @@ fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
         stack += town.second
         if (stack >= middle) {
             println(town.first)
-            return@with
+            return
         }
     }
 }
 /*
+f(x) = |x-1| * 3 + |x-2| * 5 + |x-3| * 3
+f(1) = 5 + 6 = 11
+f(2) = 3 + 3 = 6
+f(3) = 6 + 5 = 11
+f(1) > f(2), f(3) > f(2)
 3
 1 3
 2 5
@@ -41,10 +47,16 @@ fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
 
 2
 
-2
-1 3
-2 3
+4
+1 1
+2 1
+3 1
+4 1
 
-1
+f(x) = |x-1| * 1 + |x-2| * 1 + |x-3| * 1 + |x-4| * 1
+f(1) = 0 + 1 + 2 + 3 = 6
+f(2) = 1 + 0 + 1 + 2 = 4
+f(3) = 2 + 1 + 0 + 1 = 4
+f(4) = 3 + 2 + 1 + 0 = 6
  */
 
