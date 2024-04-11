@@ -36,111 +36,117 @@ private fun countMinRoute(firstLine: String, secondLine: String, N: Int, K: Long
     )
     var moveCount = 0L // 움직인 횟수
 
-    if (!validTrack(lineArray, N, K)) {
-        return -1
+    if (!validTrack(lineArray, K)) {
+        return -1L
     }
+    // 첫번째 라인의 처음으로 등장하는 장애물 index
+    val firstLineOfFirstObject = firstLine.indexOf('#')
+    // 두번째 라인의 처음으로 등장하는 장애물 index
+    val secondLineOfFirstObject = secondLine.indexOf('#')
 
-    val startLine = if (N == 1) {
-        return 1 * K
-    } else {
-        // 첫번째 라인의 처음으로 등장하는 장애물 index
-        val firstLineOfFirstObject = firstLine.indexOf('#')
-        // 두번째 라인의 처음으로 등장하는 장애물 index
-        val secondLineOfFirstObject = secondLine.indexOf('#')
+    // 시작 라인 정하기
+    val startLine =
         if (firstLineOfFirstObject == -1) 0
         else if (secondLineOfFirstObject == -1) 1
         else if (firstLineOfFirstObject >= secondLineOfFirstObject) 0
         else 1
-    }
+
     var currentLine = startLine
 
     for (i in 1 until N) {
         if (lineArray[currentLine][i] == '#') {
             currentLine = getAnotherLine(currentLine)
             // 장애물로 경로가 막혀있을 경우
-            if (lineArray[currentLine][i] == '#' || lineArray[currentLine][i-1] == '#') return -1
+            if (lineArray[currentLine][i] == '#' || lineArray[currentLine][i-1] == '#') return -1L
             moveCount += 2L
         } else {
             moveCount += 1L
         }
     }
-    if (startLine == currentLine) {
-        moveCount = (moveCount + 1) * K - 1
+
+    val moveNext =  if (startLine == currentLine) {
+        1L
     } else {
-        moveCount = moveCount * K + K + K - 2
+        2L
     }
-    return moveCount
+
+    return moveCount * K + moveNext * (K - 1)
 }
 
 private fun getAnotherLine(line: Int): Int {
     return if (line == 1) 0 else 1
 }
 
-private fun validTrack(lineArray: Array<CharArray>, N: Int, K: Long): Boolean {
+private fun validTrack(lineArray: Array<CharArray>, K: Long): Boolean {
+    val length = lineArray[0].size
 
     if (lineArray[0][0] == '#' && lineArray[1][0] == '#') {
         return false
     }
-    if (lineArray[0][N-1] == '#' && lineArray[1][N-1] == '#') {
+    if (lineArray[0][length-1] == '#' && lineArray[1][length-1] == '#') {
         return false
     }
     if (K == 1L) {
         return true
     }
 
-    if (lineArray[0][0] == '#' && lineArray[1][N-1] == '#') {
+    if (lineArray[0][0] == '#' && lineArray[1][length-1] == '#') {
         return false
     }
-    if (lineArray[1][0] == '#' && lineArray[0][N-1] == '#') {
+    if (lineArray[1][0] == '#' && lineArray[0][length-1] == '#') {
         return false
     }
     return true
 }
 
 /*
-3 2
-#..
-..#
+1 2
+.
+.
 
-3 1
-...
+3 2
+.#.
+#.#
+
+4 10
+
+3 2
+..#
 .#.
 
-5 1
-..#..
-#...#
+12 2
+.##...#...##
+#...#...#...
 
-13
+12 2
+..#...#...##
+#...#...#...
 
-5 3
-..#..
-#...#
-
-20
+16 34
 
 4 3
-..#.
-#...
+...#
+.#..
 
-16
+4 10 16
+
+5 2
+.#...
+...#.
+
+5 12 19
 
 4 2
-...#
-#.#.
+#...
+..#.
 
--1
+4 10
 
-3 1
-#..
-..#
-
-3
-
-5 1
+5 2
 ..#..
 ....#
 
-19
+19 5 12 17
 
 5 2
 ....#
@@ -151,4 +157,10 @@ private fun validTrack(lineArray: Array<CharArray>, N: Int, K: Long): Boolean {
 4 2
 ...#
 #...
+
+9 2
+.#...#...
+...#...#.
+
+11 24
  */
