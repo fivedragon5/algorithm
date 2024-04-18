@@ -12,7 +12,6 @@
  */
 
 import java.util.StringTokenizer
-import sun.security.krb5.internal.KDCOptions.with
 
 fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
 
