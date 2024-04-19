@@ -1,3 +1,7 @@
+/**
+ * https://www.acmicpc.net/problem/9095
+ */
+
 import java.util.StringTokenizer
 
 fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
@@ -15,17 +19,18 @@ fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
     dp[1] = 1
     dp[2] = 2
     dp[3] = 4
-    dp[4] = 7
 
     for (number in list) {
-        val result = getNumber(dp, number)
+        val result = getDp(dp, number)
         println(result)
     }
 }
 
-private fun getNumber(dp: IntArray, number: Int): Int {
+private fun getDp(dp: IntArray, number: Int): Int {
     return if (dp[number] == -1) {
-        getNumber(dp, number - 1) * 2 + 1
+        val result = getDp(dp, number - 1) + getDp(dp, number - 2) + getDp(dp, number - 3)
+        dp[number] = result
+        result
     } else {
         dp[number]
     }
