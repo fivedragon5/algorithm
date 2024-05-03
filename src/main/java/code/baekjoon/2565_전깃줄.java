@@ -7,6 +7,8 @@
  * 제한)
  * 1 <= 전깃줄 <= 100
  * 1 <= 위치 <= 500
+ * 접근)
+ * 최장 부분 증가 수열(LIS)알고리즘
  */
 
 package code.baekjoon;
@@ -15,12 +17,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import static java.lang.Math.max;
-import static java.lang.Math.min;
 
 class Problem2565 {
     public static void main(String args[]) throws IOException {
@@ -43,17 +42,17 @@ class Problem2565 {
 
         Arrays.sort(list, (a1, a2) -> {return a1[0] - a2[0];});
 
-        for (int i = 1; i < telephonePoleCount; i++) {
+        for (int i = 0; i < telephonePoleCount; i++) {
             dp[i] = 1;
-            for (int j = 1; j < telephonePoleCount; j++) {
-                if (list[i][1] < list[j][1]) {
+            for (int j = 0; j < telephonePoleCount; j++) {
+                if (list[j][1] < list[i][1]) {
                     dp[i] = max(dp[i], dp[j] + 1);
                 }
             }
             answer = max(answer, dp[i]);
         }
 
-        System.out.println(answer);
+        System.out.println(telephonePoleCount - answer);
     }
 }
 /*
@@ -68,6 +67,12 @@ class Problem2565 {
 7 6
 
 3
+
+4
+1 4
+3 2
+2 1
+4 3
  */
 
 
