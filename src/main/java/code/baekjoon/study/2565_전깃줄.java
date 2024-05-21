@@ -12,7 +12,7 @@
  *  - 이분탐색사용시 O(log n) 으로 개선 가능
  */
 
-package code.baekjoon;
+package code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
