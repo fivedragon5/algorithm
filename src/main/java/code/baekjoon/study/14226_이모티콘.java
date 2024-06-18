@@ -1,4 +1,4 @@
-package code.baekjoon;
+package code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,10 +21,12 @@ class Problem14226 {
 
         int N = Integer.parseInt(st.nextToken());
 
-        boolean[][] visited = new boolean[2001][2001];
-        visited[1][0] = true;
+        boolean[][] visited = new boolean[1001][1001];
+        visited[1][0] = true; // <-- 시작
+
         Queue<Emoticon> queue = new LinkedList<>();
         queue.offer(new Emoticon(0, 1, 0));
+
 
         while (!queue.isEmpty()) {
             Emoticon current = queue.poll();
