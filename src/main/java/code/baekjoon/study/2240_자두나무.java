@@ -25,8 +25,7 @@ class Problem2240 {
         int W = Integer.parseInt(st.nextToken());
 
         int[] plumTree = new int[T+1];
-        // [T][W][position]([시간][움직인 횟수][위치]) = 최대 자두의 개수
-        int[][][] dp = new int[T + 1][W + 1][2];
+        int[][][] dp = new int[T + 1][W + 1][2]; // [T][W][position]([시간][움직인 횟수][위치]) = 최대 자두의 개수
 
         for (int i = 1; i <= T; i++) {
             st = new StringTokenizer(br.readLine());
@@ -52,15 +51,16 @@ class Problem2240 {
                 dp[i][0][1] = dp[i-1][0][1];
             }
 
-            for (int j = 1; j <= W; j++) {
-                if (plum == 1) {
+            for (int j = 1; j <= W; j++) { // 0 최소
+                if (plum == 1) { // 1번 나무
                     dp[i][j][0] = Math.max(dp[i-1][j][0], dp[i-1][j-1][1]) + 1; // 자두를 받은 경우
                     dp[i][j][1] = Math.max(dp[i-1][j][1], dp[i-1][j-1][0]); // 자두를 받지 않는 경우
-                } else {
+                } else { // 2번나무에서 자두가 떨어질 경우
                     dp[i][j][0] = Math.max(dp[i-1][j][0], dp[i-1][j-1][1]);
                     dp[i][j][1] = Math.max(dp[i-1][j][1], dp[i-1][j-1][0]) + 1;
                 }
             }
+            // 최대값을 갱신
         }
 
         int max = 0;
