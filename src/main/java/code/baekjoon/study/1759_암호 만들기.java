@@ -1,11 +1,9 @@
-package code.baekjoon;
+package code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -45,12 +43,10 @@ class Problem1759 {
         Arrays.sort(alphabets); // 문자열 정렬
 
         StringBuilder sb = new StringBuilder();
-        bfs(sb, 0, visited, 0, 0);
-
-        return;
+        dfs(sb, 0, visited, 0, 0);
     }
 
-    private static void bfs(
+    private static void dfs(
             StringBuilder sb,
             int start,
             boolean[] visited,
@@ -67,9 +63,9 @@ class Problem1759 {
                 visited[i] = true;
                 sb.append(alphabets[i]);
                 if (isVowel(alphabets[i])) {
-                    bfs(sb, i + 1, visited, vowelCount + 1, consonantCount);
+                    dfs(sb, i + 1, visited, vowelCount + 1, consonantCount);
                 } else {
-                    bfs(sb, i + 1, visited, vowelCount, consonantCount + 1);
+                    dfs(sb, i + 1, visited, vowelCount, consonantCount + 1);
                 }
                 sb.deleteCharAt(sb.length() - 1);
                 visited[i] = false;
