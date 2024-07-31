@@ -1,4 +1,4 @@
-package code.baekjoon;
+package code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -86,7 +86,9 @@ class Problem3151 {
 2 -5 2 3 -4 7 -4 0 1 -6
 
 8
--10 5 5 5 5 5 5 5
+-10 1 1 1
+0 1 2 3
+2 - 1
 
 6
 -8 3 3 5 5 5
