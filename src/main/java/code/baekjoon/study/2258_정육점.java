@@ -10,10 +10,12 @@ import java.util.StringTokenizer;
 
 /**
  * https://www.acmicpc.net/problem/2258
+ * 제한)
  * 1 <= N <= 100,000
  * 1 <= M <= 2,147,483,647
  * 1 <= weight, price
  *
+ * 문제)
  * 1. 원하는 양의 고기 M을 얻기 위해 지불해야 하는 최소 금액을 출력
  * 2. 불가능한 경우 -1 출력
  *

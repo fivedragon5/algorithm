@@ -1,4 +1,4 @@
-package code.baekjoon;
+package code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,10 +10,12 @@ import java.util.StringTokenizer;
 
 /**
  * https://www.acmicpc.net/problem/1092
+ * 제한)
  * 1 <= N(크레인 수) <= 50
  * 1 <= 크레인 무게 제한, 박스 무게 <= 1,000,000
  * 1 <= M(박스의 수) <= 10,000
  *
+ * 문제)
  * 1. 모든 박스를 배로 옮기는데 드는 최소 시간
  * 2. 만약 모든 박스를 배로 옮길 수 없으면 -1
  *
