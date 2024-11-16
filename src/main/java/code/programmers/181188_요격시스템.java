@@ -26,7 +26,7 @@ class Lesson181188 {
         Arrays.sort(targets, (a, b) -> Integer.compare(a[1], b[1]));
 
         int missileCount = 0; // 최소 요격 미사일 수
-        double lastInterceptPoint = -Double.MAX_VALUE; // 마지막 요격 지점
+        double lastInterceptPoint = -1; // 마지막 요격 지점
 
         // 2. 각 폭격 미사일을 순회
         for (int[] target : targets) {
