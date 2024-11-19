@@ -1,15 +1,13 @@
-package code.baekjoon;
+package code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
+
+// 1 2
+// 1
 
 /**
  * https://www.acmicpc.net/problem/2437
@@ -26,9 +24,9 @@ import java.util.StringTokenizer;
  *  - W만큼의 무게를 측정 할 수 있다고 가정하고
  *  - 무게가 X인 저울 추가 추가될 경우 측정할 수 있는 무게는 (1 ~ W) + X
  *      - 1 + X, 2 + X ... W + X
- *      - 가정1 1, 2, 3 의 무게추가 있을 경우 측정할 수 있는 무게는 1, 2, 3, 1+3, 2+5 ( 1 ~ 6 ) W = 6
- *          - ex1) 가정1 에서 무게가 2인 무게추가 추가될 경우 1+2, 2+2, 3+2 ... 6+2 ( 3 ~ 7 ) W = 8
- *          - ex2) 가정1 에서 무게가 8인 무게추가 추가될 경유 8, 1+8, 2+8 ... 6+8 ( 8 ~ 14 ) W = 14 | (1 ~ 6) (8 ~ 14)
+ *      - 가정1 1, 2, 3 의 무게추가 있을 경우 측정할 수 있는 무게는 1, 2, 3, 4, 5, 6 ( 1 ~ 6 ) W = 6
+ *          - ex1) 가정1 에서 무게가 2인 무게추가 추가될 경우 1+2, 2+2, 3+2 ... 6+2 ( 3 ~ 8 ) W = 8
+ *          - ex2) 가정1 에서 무게가 8인 무게추가 추가될 경우 1+8, 2+8 ... 6+8 ( 8 ~ 14 ) W = 14 | (1 ~ 6) (8 ~ 14)
  *              - 공백 발생
  */
 class Problem2437 {
