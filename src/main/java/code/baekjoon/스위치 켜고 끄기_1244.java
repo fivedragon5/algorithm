@@ -47,6 +47,7 @@ class Problem1244 {
             testCaseList[i][1] = Integer.parseInt(st.nextToken());
         }
 
+        // 스위치 토글
         for (int[] testCase : testCaseList) {
             test(testCase, switchList);
         }
@@ -55,29 +56,22 @@ class Problem1244 {
     }
 
     private static void test(int[] testCase, int[] switchList) {
-        // 남학생 일 경우
+        int position = testCase[1];
+        // 남학생
         if (testCase[0] == 1) {
-            int number = testCase[1];
-            while (number < switchList.length) {
-                switchList[number - 1] = toggleSwitch(switchList[number - 1]);
-                number += number;
+            for (int i = position; i < switchList.length - 1; i += position) {
+                switchList[i - 1] = toggleSwitch(switchList[i - 1]);
             }
         }
-        // 여학생 일 경우
+        // 여학생
         else {
-            int number = testCase[1] - 1; // 배열은 0부터 시작하므로 1을 뺌
-            int left = number;
-            int right = number;
-
-            // 좌우 대칭을 만족하는 가장 큰 구간 찾기
-            while (left > 0 && right < switchList.length - 1 && switchList[left - 1] == switchList[right + 1]) {
-                left--;
-                right++;
-            }
-
-            // 대칭 구간의 스위치 상태를 모두 반전
-            for (int i = left; i <= right; i++) {
-                switchList[i] = toggleSwitch(switchList[i]);
+            switchList[position - 1] = toggleSwitch(switchList[position - 1]);
+            for (int i = 1; i < switchList.length / 2; i++) {
+                if (position - 1 - i < 0 || position - 1 + i > switchList.length - 1) {
+                    break;
+                }
+                switchList[position - 1 - i] = toggleSwitch(switchList[position - 1 - i]);
+                switchList[position - 1 + i] = toggleSwitch(switchList[position - 1 + i]);
             }
         }
     }
@@ -110,7 +104,7 @@ class Problem1244 {
             currentLineLength += numberStr.length(); // 현재 줄 길이에 추가
         }
 
-        System.out.println(sb.toString());
+        System.out.println(sb);
     }
 }
 /*
@@ -121,4 +115,9 @@ class Problem1244 {
 2 3
 
 1 0 0 0 1 1 0 1
+
+45
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1
+1 3
  */
