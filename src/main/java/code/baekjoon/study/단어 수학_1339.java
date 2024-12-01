@@ -1,4 +1,4 @@
-package code.baekjoon;
+package code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,9 +19,16 @@ import java.util.StringTokenizer;
  *
  * 문제)
  * 1. 주어진 단어의 합의 최댓값 을 출력
+ * 2. 각 알파벳을 0~9 까지의 숫자중 하나로 바꿔서 N개의 수를 합하는 문제
+ *  - 이때 같은 알파벳은 같은 숫자로 바꿔야 함
+ * 3. N개의 단어가 주어젔을때 그 수의 합을 최대로 만들기
  *
  * 풀이)
- *
+ * 1. 알파벳의 중요도를 계산
+ *  - 자릿수 이용
+ * 2. 중요도 순으로 알파벳을 정렬
+ * 3. 정렬한 알파벳에 순서대로 9부터 숫자를 부여
+ * 4. 알파벳을 순회하며 숫자로 바꾸고 합산
  */
 class Problem1339 {
 
@@ -31,7 +38,7 @@ class Problem1339 {
         StringTokenizer st;
 
         st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken()); // 단어의 갯수
+        int N = Integer.parseInt(st.nextToken());
 
         String[] wordList = new String[N];
 
