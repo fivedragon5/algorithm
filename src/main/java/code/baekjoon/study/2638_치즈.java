@@ -3,167 +3,106 @@ package code.baekjoon.study;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.StringTokenizer;
 
+/**
+ * https://www.acmicpc.net/problem/2638
+ * 제한)
+ * 5 <= N, M <= 100
+ * 문제)
+ * 1. 1시간마다 치즈가 녹음
+ * 2. 치즈의 4개의 변중 2개이상의 변이 실내온도의 공기와 접촉해 있을 경우 1시간만에 녹음
+ * 3. 치즈가 모두 녹아 없어지는대까지 걸리는 시간을 구하기
+ * 4. 가장자리는 치즈가 놓이지 않는것으로 간주한다.
+ *
+ * 풀이)
+ * 1,2,3 반복
+ *  1. 외부 공기 좌표를 DFS로 갱신
+ *  2. 외부공기와 2면이상 맞닿은 치즈 녹이기
+ *  3. 남아있는 치즈의 수가 0개일경우 지난 시간 return
+ */
 class Problem2638 {
 
     static int N,M;
-    static int[] dy = {0, 1, 0, -1};
-    static int[] dx = {1, 0, -1, 0};
-    static Stack<int[]> road;
+    private static final int[] dy = {0, 1, 0, -1};
+    private static final int[] dx = {1, 0, -1, 0};
 
     public static void main(String args[]) throws IOException {
-        /**
-         8 9
-         0 0 0 0 0 0 0 0 0
-         0 0 0 1 1 0 0 0 0
-         0 0 0 1 1 0 1 1 0
-         0 0 1 1 1 1 1 1 0
-         0 0 1 1 1 1 1 0 0
-         0 0 1 1 0 1 1 0 0
-         0 0 0 0 0 0 0 0 0
-         0 0 0 0 0 0 0 0 0
-
-         6 9
-         0 0 0 0 0 0 0 0 0
-         0 1 0 0 1 0 0 1 0
-         0 1 0 0 0 0 0 1 0
-         0 1 0 0 1 0 0 1 0
-         0 1 1 1 1 1 1 1 0
-         0 0 0 0 0 0 0 0 0
-         */
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
-        int time = 0;
-
-        // 5 <= N,M <= 100
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-
-        int[][] map = new int[N][M];
-
-        Queue<int[]> cheese = new LinkedList<>();
-
-        for (int i = 0; i < N ; i++) {
+        N = Integer.parseInt(st.nextToken()); // 행 수
+        M = Integer.parseInt(st.nextToken()); // 열 수
+        int[][] cheese = new int[N][M];
+        int cheeseCount = 0;
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < M ; j++) {
-                map[i][j] = Integer.parseInt(st.nextToken());
-                if(map[i][j] == 1) {
-                    cheese.add(new int[]{i, j, 0});
+            for (int j = 0; j < M; j++) {
+                int parseInt = Integer.parseInt(st.nextToken());
+                if (parseInt == 1) cheeseCount++;
+                cheese[i][j] = parseInt;
+            }
+        }
+
+        int hour = 0;
+        while (cheeseCount > 0) {
+            checkOutSideAir(cheese, new boolean[N][M], 0, 0);
+            cheeseCount -= meltCheese(cheese);
+            hour++;
+        }
+        System.out.println(hour);
+    }
+
+    private static void checkOutSideAir(int[][] cheese, boolean[][] visited, int row, int col) {
+        if (visited[row][col]) {
+            return;
+        }
+        visited[row][col] = true;
+        if (cheese[row][col] == 1) {
+            return;
+        }
+        cheese[row][col] = -1;
+        for (int i = 0; i < 4; i++) {
+            int moveRow = row + dy[i];
+            int moveCol = col + dx[i];
+            if (moveRow >= 0 && moveRow < N && moveCol >= 0 && moveCol < M) {
+                checkOutSideAir(cheese, visited, moveRow, moveCol);
+            }
+        }
+    }
+
+    private static int meltCheese(int[][] cheese) {
+        int meltCheeseCount = 0;
+        for (int i = 1; i < N - 1; i++) {
+            for (int j = 1; j < M - 1; j++) {
+                if (cheese[i][j] == 1 && countOutsideAir(cheese, i, j) >= 2) {
+                    meltCheeseCount++;
+                    cheese[i][j] = 0;
                 }
             }
         }
-
-        while (true) {
-
-            if (cheese.size() == 0 || time >= 1) break;
-
-            //녹을치즈인지 안녹을 치즈인지 확인(안녹:0,녹:1)
-            for (int i = 0; i < cheese.size(); i++) {
-                int temp[] = cheese.poll();
-                cheese.add(new int[]{temp[0], temp[1], isCheck(map, temp)});
-            }
-
-            Queue<int[]> tempCheese = new LinkedList<>();
-
-            //치즈 큐 갱신, 맵 갱신
-            for (int[] cheesePoint : cheese) {
-                if (cheesePoint[2] == 1) map[cheesePoint[0]][cheesePoint[1]] = 0;
-                else tempCheese.add(cheesePoint);
-            }
-
-            cheese.clear();
-
-            for (int[] tempCheesePoint : tempCheese) {
-                cheese.add(tempCheesePoint);
-            }
-
-            tempCheese.clear();
-
-//            for(int[] m : map) {
-//                System.out.println(Arrays.toString(m));
-//            }
-            time++;
-        }
-        System.out.println(time);
-
+        return meltCheeseCount;
     }
-    
-    //return 1: 녹을치즈 / 0: 안녹을 치즈
-    static int isCheck(int[][] map, int[] point) {
-        int turn = 0;
-        int[] direction = {0,0,0,0}; //우,하,좌,상
-        
-        //빈공간이 상하좌우 2개 이상
+
+    private static int countOutsideAir(int[][] cheese, int row, int col) {
+        int count = 0;
         for (int i = 0; i < 4; i++) {
-            int x = point[1] + dx[i];
-            int y = point[0] + dy[i];
-            if (x < 0 || y < 0 || x >= M || y >= N) {
-                turn += 1;
-            }
-            else if (map[y][x] == 0) {
-                turn += 1;
-                direction[i] = 1;
+            int newRow = row + dy[i];
+            int newCol = col + dx[i];
+            if (cheese[newRow][newCol] == -1) {
+                count++;
             }
         }
-
-        //공기와의 접촉
-        for (int i = 0; i < 4; i++) {
-            if(turn <= 1) return 0;
-            if(direction[i] == 1) {
-                road = new Stack<>();
-                if (meetCheese(map, point[1], point[0], i)) {
-                    while(!road.isEmpty()) {
-                        int[] temp = road.peek();
-                        if (meetWall(map, temp[1], temp[0], temp[2])) {
-                            turn -= 1;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        return 1;
-    }
-
-    static boolean meetCheese(int[][] map, int x, int y, int dir) {
-        int moveX = x + dx[dir];
-        int moveY = y + dy[dir];
-
-        if (moveX < 0 || moveY < 0 || moveX >= M || moveY >= N) {
-            return false;
-        }
-        else if (map[moveY][moveX] == 1) {
-            return true;
-        }
-        else {
-            road.push(new int[]{moveY, moveX, 0});
-            road.push(new int[]{moveY, moveX, 1});
-            road.push(new int[]{moveY, moveX, 2});
-            road.push(new int[]{moveY, moveX, 3});
-            return meetCheese(map, moveX, moveY, dir);
-        }
-    }
-    static boolean meetWall(int[][] map, int x, int y, int dir) {
-        int moveX = x + dx[dir];
-        int moveY = y + dy[dir];
-
-        System.out.println("road (" + moveX + "," + moveY + ")");
-
-        if (moveX < 0 || moveY < 0 || moveX >= M || moveY >= N) {
-            System.out.println("벽!");
-            return true;
-        }
-        else if (map[moveY][moveX] == 0) {
-            System.out.println("통로!");
-            road.push(new int[]{moveY, moveX, 0});
-            road.push(new int[]{moveY, moveX, 1});
-            road.push(new int[]{moveY, moveX, 2});
-            road.push(new int[]{moveY, moveX, 3});
-        }
-        return false;
+        return count;
     }
 }
+/*
+8 9
+0 0 0 0 0 0 0 0 0
+0 0 0 1 1 0 0 0 0
+0 0 0 1 1 0 1 1 0
+0 0 1 1 1 1 1 1 0
+0 0 1 1 1 1 1 0 0
+0 0 1 1 0 1 1 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+ */
