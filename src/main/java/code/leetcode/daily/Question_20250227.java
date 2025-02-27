@@ -28,25 +28,25 @@ public class Question_20250227 {
 //        System.out.println(lenLongestFibSubseq(nums2));
     }
 
-    private static int answer = 0;
-
     public static int lenLongestFibSubseq(int[] arr) {
-        fibonacci(arr, 0, 1, 0);
-        return answer;
+        int answer = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                answer = Math.max(fibonacci(arr, i, j, 0), answer);
+            }
+        }
+        return answer == 0 ? 0 : answer + 2;
     }
 
-    private static void fibonacci(int[] arr, int index1, int index2, int count) {
+    private static int fibonacci(int[] arr, int index1, int index2, int count) {
         for (int i = index2 + 1; i < arr.length; i++) {
             int sum = arr[index1] + arr[index2];
             if (sum == arr[i]) {
-                index1 = index2;
-                index2 = i;
-                fibonacci(arr, index1, index2, count + 1);
+                return fibonacci(arr, index2, i,count + 1);
             } else if (sum < arr[i]) {
-                answer = Math.max(answer, count);
-                return;
+                return count;
             }
         }
-        answer = Math.max(answer, count);
+        return count;
     }
 }
