@@ -18,7 +18,8 @@ import java.util.List;
  *  3. 새로운 배열을 만들기
  *
  * 풀이)
- *
+ *  result[id][2] : result[id][0] = id, result[id][1] = value
+ *  1. nums1, nums2 을 순회하면서 result[id][1] 에 값을 갱신
  */
 
 public class Question_20250302 {
@@ -57,9 +58,10 @@ public class Question_20250302 {
         List<int[]> answer = new ArrayList<>();
 
         for (int i = 0; i < result.length; i++) {
-            result[i][0] = i + 1;
+            if (result[i][1] != 0) {
+                answer.add(new int[]{i + 1, result[i][1]});
+            }
         }
-
-        return result;
+        return answer.toArray(new int[0][]);
     }
 }
