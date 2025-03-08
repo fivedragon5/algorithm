@@ -1,4 +1,4 @@
-package code.leetcode.daily;
+package code.leetcode.daily.year2025.month02;
 
 import com.sun.source.tree.Tree;
 
