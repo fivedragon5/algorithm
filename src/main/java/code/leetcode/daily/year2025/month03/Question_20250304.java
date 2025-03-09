@@ -1,8 +1,6 @@
 package code.leetcode.daily.year2025.month03;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * https://leetcode.com/problems/check-if-number-is-a-sum-of-powers-of-three/description/?envType=daily-question&envId=2025-03-04
