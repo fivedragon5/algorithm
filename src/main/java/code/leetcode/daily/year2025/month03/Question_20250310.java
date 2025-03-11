@@ -17,12 +17,26 @@ import java.util.Map;
  *  2. k = 1 일 경우, ioaeuq
  *
  * 풀이)
+ *  1. left, right 를 사용한 sliding window 사용
+ *  2. vowelMap Character, Integer (모음 Map, count)
+ *  3. vowelCount 누적 가능 카운트
+ *   - 자음 수 = k 질때 answer 누적된 수를 더해주기 (중요)
+ *  4. consonantsCount : 자음 수
+ *  5. right < word.length 반복문 실행
+ *   - 모음 일 경우 vowelMap 에 카운트 추가
+ *   - 자음 일 경우
+ *      - consonantsCount > k
+ *          - k랑 같아 질 때까지 leftIndex++ 시키며 왼쪽 문자열을 하나씩 제거 관련 카운트도 갱신
+ *          - vowelCount 초기화
+ *      - consonantsCount == k, 모든 모음 1개 이상 존재
+ *          - 조건을 만족하지 않을때까지 반복 문 실행
+ *          - 반복할때마다 leftIndex 증가, vowelCount 증가
  *
  */
 
 public class Question_20250310 {
     public static void main(String args[]) throws IOException {
-        String word = "hoiuafoehh"; int k = 3;
+        String word = "ieaouqqieaouqq"; int k = 1;
         System.out.println(countOfSubstrings(word, k));
 
         word = "ieaouqqieaouqq"; k = 1;
@@ -31,96 +45,67 @@ public class Question_20250310 {
         word = "aeiou"; k = 0;
         System.out.println(countOfSubstrings(word, k)); // 1
 
-        word = "ieaouqqieaouqq"; k = 1;
-        System.out.println(countOfSubstrings(word, k)); // 3
-
-        // iqeaouqi 2
-        // iqeaouq qeaouq(x)
-        // iqeaouqi qeaouqi eaouqi(x)
-
-        // hoiuafoehh 3
-        // hoiuafoeh oiuafoeh(x)
-        // oiuafoehh iuafoehh uafoehh(x)
-
+        // ieaouqqieaouqq 1
+        // ieaouq(o)
+        // ieaouqq(x) ... q
+        // qieaou(o) qieaouq(x) ieaouq(o)
     }
 
     private static char[] VOWEL_LIST = new char[]{'a', 'e', 'i', 'o', 'u'};
 
     public static long countOfSubstrings(String word, int k) {
         long answer = 0;
+        int length = word.length();
         Map<Character, Integer> vowelMap = new HashMap<>();
         vowelMap.put('a', 0);
         vowelMap.put('e', 0);
         vowelMap.put('i', 0);
         vowelMap.put('o', 0);
         vowelMap.put('u', 0);
-        int consonantCount = 0;
+        int consonantsCount = 0;
         int leftIndex = 0;
-        boolean isCompleted = false;
+        int rightIndex = 0;
+        int vowelCount = 0;
 
-        for (int i = 0; i < word.length(); i++) {
-            char currentChar = word.charAt(i);
+        while (rightIndex < length) {
+            char currentChar = word.charAt(rightIndex);
             if (isVowel(currentChar)) {
                 vowelMap.put(currentChar, vowelMap.get(currentChar) + 1);
-                if (consonantCount == k && checkVowelMap(vowelMap)) {
-                    answer++;
-                    isCompleted = true;
-                }
-                else {
-                    isCompleted = false;
-                }
+            } else {
+                consonantsCount++;
+            }
 
-                if (isCompleted) {
-                    Map<Character, Integer> tempVowelMap = new HashMap<>(vowelMap);
-                    int tempLeftIndex = leftIndex;
-                    while (tempLeftIndex <= i - 5) {
-                        char leftChar = word.charAt(tempLeftIndex++);
-                        if (isVowel(leftChar)) {
-                            tempVowelMap.put(leftChar, tempVowelMap.get(leftChar) - 1);
-                            if (checkVowelMap(tempVowelMap)) {
-                                answer++;
-                                continue;
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-            else {
-                consonantCount++;
-                if (consonantCount == k && checkVowelMap(vowelMap)) {
-                    answer++;
-                    Map<Character, Integer> tempVowelMap = new HashMap<>(vowelMap);
-                    int tempLeftIndex = leftIndex;
-                    while (tempLeftIndex <= i - 5) {
-                        char leftChar = word.charAt(tempLeftIndex++);
-                        if (isVowel(leftChar)) {
-                            tempVowelMap.put(leftChar, tempVowelMap.get(leftChar) - 1);
-                            if (checkVowelMap(tempVowelMap)) {
-                                answer++;
-                                continue;
-                            }
-                        }
-                        break;
-                    }
+            while (consonantsCount > k) {
+                vowelCount = 0;
+                char leftChar = word.charAt(leftIndex++);
+                if (isVowel(leftChar)) {
+                    vowelMap.put(leftChar, vowelMap.get(leftChar) - 1);
                 } else {
-                    while (consonantCount >= k) {
-                        char leftChar = word.charAt(leftIndex++);
-                        if (isVowel(leftChar)) {
-                            vowelMap.put(leftChar, vowelMap.get(leftChar) - 1);
-                            if (consonantCount == k && checkVowelMap(vowelMap)) {
-                                answer++;
-                            }
-                        } else {
-                            consonantCount--;
-                            if (consonantCount == k && checkVowelMap(vowelMap)) {
-                                answer++;
-                            }
-                        }
-                    }
+                    consonantsCount--;
                 }
             }
+
+            if (consonantsCount == k) {
+                if (checkVowelMap(vowelMap)) {
+                    while (leftIndex <= rightIndex) {
+                        char leftChar = word.charAt(leftIndex);
+                        if (isVowel(leftChar)) {
+                            int count = vowelMap.get(leftChar);
+                            if (count > 1) {
+                                vowelMap.put(leftChar, count - 1);
+                                vowelCount++;
+                                leftIndex++;
+                                continue;
+                            }
+                        }
+                        break;
+                    }
+                    answer += vowelCount + 1;
+                }
+            }
+            rightIndex++;
         }
+
         return answer;
     }
 
