@@ -5,6 +5,7 @@
 ## 📜 소개
    - 알고리즘 문제를 풀고 기록하는 공간
 
+## SOLVED
 ### [LEETCODE](https://www.acmicpc.net/)
 <img width="350" alt="image" src="https://github.com/user-attachments/assets/150d9241-4f56-48db-8cff-59ac8ecc28cf" />
 
