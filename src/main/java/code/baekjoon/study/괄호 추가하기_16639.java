@@ -1,4 +1,4 @@
-package code.baekjoon;
+package code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,6 +21,13 @@ import java.util.StringTokenizer;
  *  DP
  *
  *  각 구간의 최대, 최대 값을 구하기 위해 DP 테이블을 만든다.
+ *
+ *  3+8*7-9*2
+ *  3               : 3
+ *  3+8             : 11
+ *  (3+8)*7         : 77
+ *  (3+8)*7-9       : 68
+ *  ((3+8)*7-9)*2   : 136
  *
  *  1. 숫자 numbers, 수식 ops 배열에 저장
  *  2. DP 테이블을 만들어서 DP_MAX[][], DP_MIN[][] : i ~ j 번째 숫자까지의 부분 수식의 최댓, 최솟값 배열 생성
