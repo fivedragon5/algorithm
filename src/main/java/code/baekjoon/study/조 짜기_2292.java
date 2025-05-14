@@ -1,4 +1,4 @@
-package code.baekjoon;
+package code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,6 +29,7 @@ import java.util.StringTokenizer;
  *            dp[4] : dp[1] + 2 ~ 4 번 학생중 점수 max - min 값 = 7 - 1
  *            ...
  *   각 구간별 score의 max, min을 memoization시 효율성 올라갈듯
+ *
  */
 class Problem2292 {
 
