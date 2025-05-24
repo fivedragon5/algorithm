@@ -1,4 +1,4 @@
-package code.programmers;
+package code.programmers.study;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -45,7 +45,7 @@ import java.util.Map;
  *   - Map에 좌표값을 저장할때 x,y값을 String으로 변환해서 저장
  *   - 로봇각각의 값의 저장의 편의성을 위해 Robot Class를 만들어서 진행했다.
  */
-class Lesson389479 {
+class Lesson340211 {
     public static void main(String[] args) {
         int[][] points5 = {{1, 1}, {1, 3}, {1, 4}, {3, 3}};
         int[][] routes5 = {{1, 3}, {3, 2}, {4, 2}};
