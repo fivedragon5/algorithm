@@ -49,28 +49,33 @@ class Lesson250136 {
         ROW = land.length; // 행의 수
         COL = land[0].length; // 열의 수
         int maxOilAmount = 0; // 최대 석유량
-        int oilGroupIndex = 1;
-        int[][] oilGroupMap = new int[ROW][COL];
-        List<Integer> oilGroupAmount = new ArrayList<>();
-        oilGroupAmount.add(0); // 0번째 0으로 저장
+
+        int oilGroupIndex = 1; // 석유 그룹 Index
+        int[][] oilGroupMap = new int[ROW][COL]; // 석유 그룹 MAP
+
+        List<Integer> oilGroupAmount = new ArrayList<>(); // 석유 그룹 : 석유 량 저장
+        oilGroupAmount.add(0); // 초기값
 
         // 0 ~ row 까지 시추관 을 꽂았을 경우
         for (int x = 0; x < COL; x++) {
             int currentOilAmount = 0; // 현재 시추관을 꽂았을 때 석유량 초기화
             Set<Integer> visited = new HashSet<>();
             for (int y = 0; y < ROW; y++) {
-                // 시추관을 꽂을 수 있는지 확인
+                // 석유가 있고, 처음 발견하는 석유 그룹인 경우
                 if (land[y][x] == 1 && oilGroupMap[y][x] == 0) {
                     // 시추관을 꽂았을 때 석유를 채취할 수 있는 양 계산
                     visited.add(oilGroupIndex); // 현재 석유 그룹 방문 처리
                     int groupOil = bfs(land, oilGroupMap, x, y, oilGroupIndex++);
                     currentOilAmount += groupOil; // 현재 시추관을 꽂았을 때 석유량 증가
                     oilGroupAmount.add(groupOil); // 석유량 저장
-                } else if (oilGroupMap[y][x] != 0 && !visited.contains(oilGroupMap[y][x])) {
+                }
+                // 이미 채취한 석유 그룹인 경우
+                else if (oilGroupMap[y][x] != 0 && !visited.contains(oilGroupMap[y][x])) {
                     int oilGroupId = oilGroupMap[y][x];
                     currentOilAmount += oilGroupAmount.get(oilGroupId); // 이미 채취한 석유량 추가
                     visited.add(oilGroupId); // 현재 석유 그룹 방문 처리
-                } else {
+                }
+                else {
 
                 }
             }
@@ -79,6 +84,7 @@ class Lesson250136 {
         return maxOilAmount;
     }
 
+    //
     private static int bfs(int[][] land, int[][] oilGroupMap, int x, int y, int oilGroupIndex) {
         int oilAmount = 1;
         Queue<int[]> queue = new LinkedList<>();
