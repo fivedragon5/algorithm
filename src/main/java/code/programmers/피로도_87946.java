@@ -1,7 +1,5 @@
 package code.programmers;
 
-import java.util.Arrays;
-
 /**
  * https://school.programmers.co.kr/learn/courses/30/lessons/87946
  *
@@ -19,7 +17,10 @@ import java.util.Arrays;
  *  2. 각 던전당 하루에 한번 탐험할 수 있다고 할 때, 한 유저가 오늘 최대로 돌 수 있는 던전의 수 를 구하기
  *
  * 풀이)
- *
+ *  DFS, 백트래킹
+ *   - 던전의 최대 수 가 8이므로, 모든 경우의 수를 탐색하기 충분
+ *  1. 던전을 돌 수 있는 모든 경우의 수를 계산
+ *  2. 매번 최대값을 갱신
  *
  */
 class Lesson87946 {
@@ -29,34 +30,23 @@ class Lesson87946 {
         System.out.println(solution(k, dungeons));
     }
 
-    private static int MAX = 0;
+    private static int MAX_COUNT = 0;
 
     public static int solution(int k, int[][] dungeons) {
-        Arrays.sort(dungeons, (a, b) -> {
-            if (a[0] == b[0]) {
-                return Integer.compare(a[0], b[0]); // 오름차순
-            }
-            return Integer.compare(b[0], a[0]); // 내림차순
-        });
-
-        bfs(k, dungeons, 0, 0);
-
-        return MAX;
+        backTracking(k, dungeons, new boolean[dungeons.length], 0);
+        return MAX_COUNT;
     }
 
-    private static void bfs(int currentK, int[][] dungeons, int currentDungeonCount, int dungeonIndex) {
-        if (dungeonIndex >= dungeons.length) {
-            MAX = Math.max(MAX, currentDungeonCount);
-            return;
-        }
-        int[] currentDungeon = dungeons[dungeonIndex];
+    private static void backTracking(int k, int[][] dungeons, boolean[] visited, int count) {
+        MAX_COUNT = Math.max(MAX_COUNT, count);
 
-        // 현재 던전을 돌지 않을 경우
-        bfs(currentK, dungeons, currentDungeonCount, dungeonIndex + 1);
-
-        // 현재 던전을 돌 경우
-        if (currentK >= currentDungeon[0]) {
-            bfs(currentK - currentDungeon[1], dungeons, currentDungeonCount + 1, dungeonIndex + 1);
+        for (int i = 0; i < dungeons.length; i++) {
+            int[] dungeon = dungeons[i];
+            if (!visited[i] && dungeon[0] <= k) {
+                visited[i] = true; // 던전 방문 처리
+                backTracking(k - dungeon[1], dungeons, visited, count + 1); // 소모 피로도를 빼고 재귀 호출
+                visited[i] = false; // 던전 방문 취소
+            }
         }
     }
 }
