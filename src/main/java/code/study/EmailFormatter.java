@@ -14,12 +14,19 @@ public class EmailFormatter {
 
         try {
             String formattedEmail = createEmailContent(receiverEmail, emailBody);
-            System.out.println("Formatted Email:");
+            System.out.println("Formatted Email:" + formattedEmail);
             System.out.println(formattedEmail);
             System.out.println(formattedEmail.getBytes(StandardCharsets.UTF_8).length);
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         }
+
+        System.out.println(leftPad(receiverEmail, RECEIVER_LENGTH));
+        System.out.println(leftPad(receiverEmail, RECEIVER_LENGTH).getBytes(StandardCharsets.UTF_8).length);
+        System.out.println(rightPad(emailBody, BODY_LENGTH));
+        System.out.println(rightPad(emailBody, BODY_LENGTH).getBytes().length);
+
+        //                                                                                                                                    example@example.com
     }
 
     /**
@@ -44,18 +51,30 @@ public class EmailFormatter {
      * @return 포맷팅된 문자열
      */
     private static String formatString(String input, int byteSize) {
-        byte[] inputBytes = input.getBytes(StandardCharsets.UTF_8);
-
-        if (inputBytes.length > byteSize) {
-            throw new IllegalArgumentException("Input exceeds the allowed byte size of " + byteSize);
-        }
-
-        // 부족한 부분 공백으로 채우기
+        int inputByteSize = input.getBytes().length;
         StringBuilder builder = new StringBuilder(input);
-        while (builder.toString().getBytes(StandardCharsets.UTF_8).length < byteSize) {
+        for (int i = 0; i < byteSize - inputByteSize; i++) {
             builder.append(" ");
         }
+        return builder.toString();
+    }
 
+    private static String leftPad(String input, int byteSize) {
+        int inputByteSize = input.getBytes().length;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < byteSize - inputByteSize; i++) {
+            builder.append(" ");
+        }
+        builder.append(input);
+        return builder.toString();
+    }
+
+    private static String rightPad(String input, int byteSize) {
+        int inputByteSize = input.getBytes().length;
+        StringBuilder builder = new StringBuilder(input);
+        for (int i = 0; i < byteSize - inputByteSize; i++) {
+            builder.append(" ");
+        }
         return builder.toString();
     }
 }
