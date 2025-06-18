@@ -128,7 +128,16 @@ class Lesson72412 {
             infoMap.computeIfAbsent(key, k -> new ArrayList<>()).add(score);
             return;
         }
+        // 각 조건에 대해 와일드카드 '-'를 포함한 모든 조합 생성
+        // ex) java backend junior pizza 150
+        //   -      -       -       -   150
+        //   java   backend -       -   150
+        //   java   backend junior  -   150
+        //   ....
+
+        // 1. 현재 조건을 포함
         makeKeys(arr, depth + 1, key + arr[depth], score);
+        // 2. 현재 조건을 제외 (와일드카드 '-')
         makeKeys(arr, depth + 1, key + "-", score);
     }
 
@@ -136,12 +145,14 @@ class Lesson72412 {
     private static int countByScore(String key, int score) {
         if (!infoMap.containsKey(key)) return 0;
         List<Integer> list = infoMap.get(key);
+
         int left = 0, right = list.size();
         while (left < right) {
             int mid = (left + right) / 2;
             if (list.get(mid) < score) left = mid + 1;
             else right = mid;
         }
+
         return list.size() - left;
     }
 }
