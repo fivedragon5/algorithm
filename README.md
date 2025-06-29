@@ -13,6 +13,4 @@
 <img width="232" alt="image" src="https://github.com/user-attachments/assets/d48bb50f-781c-4a16-9154-741893279a75" />
 
 ### [PROGRAMMERS](https://programmers.co.kr/)
-<img width="338" alt="image" src="https://github.com/user-attachments/assets/96277363-f54f-4197-a29e-96c9c6c178b6" />
-
-
+![image](https://github.com/user-attachments/assets/fcfafec6-c27d-439a-aa15-0e3a8aa67348)
