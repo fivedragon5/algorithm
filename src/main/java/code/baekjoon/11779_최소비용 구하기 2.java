@@ -23,7 +23,6 @@ import java.util.StringTokenizer;
  *  2. A번째 도시에서 B번째 도시까지 가는데 드는 버스 비용의 최소 비용, 경로를 출력
  *   - 항상 시작점에서 도착점으로 경로가 존재
  *
- *
  * 풀이)
  *  풀이 1
  *   - DFS -> 시간 초과 발생
@@ -51,8 +50,10 @@ class Problem11779 {
 
         dijkstra(START_POINT);
 
+        // 정답출력하는 부분
         StringBuilder sb = new StringBuilder();
         sb.append(COSTS[END_POINT] + "\n");
+
         List<Integer> history = new ArrayList<>();
         for (int at = END_POINT; at != 0; at = PATH[at]) {
             history.add(at);
@@ -60,11 +61,13 @@ class Problem11779 {
                 break;
             }
         }
+
         sb.append(history.size() + "\n");
         Collections.reverse(history);
         for (int city : history) {
             sb.append(city + " ");
         }
+
         sb.deleteCharAt(sb.length() - 1);
         System.out.println(sb);
     }
