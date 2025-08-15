@@ -1,4 +1,4 @@
-package code.baekjoon;
+package code.baekjoon.study;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,6 +33,7 @@ class Problem20310 {
         StringBuilder sb = new StringBuilder();
         int zeroCount = 0;
         int oneCount = 0;
+
         for (int i = 0; i < S.length(); i++) {
             if (S.charAt(i) == '0') {
                 zeroCount++;
