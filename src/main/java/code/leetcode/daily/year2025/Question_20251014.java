@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * https://leetcode.com/problems/adjacent-increasing-subarrays-detection-i/description/?envType=daily-question&envId=2025-10-14
+ *
  * 제한)
  *  2 <= nums.length <= 100
  *  1 < 2 * k <= nums.length

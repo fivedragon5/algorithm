@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * https://leetcode.com/problems/adjacent-increasing-subarrays-detection-ii/description/?envType=daily-question&envId=2025-10-15
+ *
  * 제한)
  *  2 <= nums.length <= 2 * 105
  * -10^9 <= nums[i] <= 10^9
