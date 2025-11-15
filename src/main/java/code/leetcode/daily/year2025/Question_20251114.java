@@ -26,7 +26,6 @@ import java.io.IOException;
  *   - queries 최대 10,000 -> n^2 * queries = 2
  *   -> 2,500,000,000 -> 25억 -> 시간 초과
  *  차분 배열 사용
- *   ->
  *
  */
 
