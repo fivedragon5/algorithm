@@ -35,6 +35,7 @@ public class Question_20251118 {
         if (bits[n - 1] != 0) {
             return false;
         }
+
         int i = 0;
         while (i < n - 1) {
             if (bits[i] == 0) {
