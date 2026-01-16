@@ -19,6 +19,7 @@ import java.util.StringTokenizer;
  * 1 <= N <= 50
  * 1 <= word.length <= 50
  * 같은 단어가 있을 수 있음
+ *
  */
 class Problem1141 {
     public static void main(String args[]) throws IOException {

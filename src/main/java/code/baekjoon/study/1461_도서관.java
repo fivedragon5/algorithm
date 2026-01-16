@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 
 /**
  * https://www.acmicpc.net/problem/1461
+ *
  * 제한)
  * 1 <= N, M <= 50
  * 0 <= | 책의 거리 | < 10,000
